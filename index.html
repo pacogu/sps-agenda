@@ -1233,38 +1233,49 @@ on('#porteria-no','change',function(){if(this.checked)togglePorteria(false);});
 on('#btn-add-port','click',()=>addPorteriaPersona());
 on('#traslado-si','change',function(){if(this.checked)toggleTraslado(true);});
 on('#traslado-no','change',function(){if(this.checked)toggleTraslado(false);});
-on('#btn-enviar-agenda','click',async()=>{
+on('#btn-enviar-agenda','click',()=>{
   var checked=RECIPIENTS.filter(r=>r.checked);
   if(!checked.length){showToast('⚠️ Selecciona al menos un destinatario');return;}
   var acts=getEnviarActivities(),wl=formatWeekLabel(enviarWeekOffset),wn=getWeekNumber(getWeekStart(enviarWeekOffset));
   var subject='📅 Agenda Saint Peter\'s School — Semana '+wn+' · '+wl;
   var btn=Q('#btn-enviar-agenda');btn.disabled=true;btn.innerHTML='⏳ Creando borradores...';
-  var sent=0,failed=[];
+  var total=checked.length,done=0,sent=0,failed=[];
 
-  for(var i=0;i<checked.length;i++){
-    var r=checked[i];
+  function finish(){
+    btn.disabled=false;
+    btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Enviar agenda';
+    if(!failed.length){showToast('✅ '+sent+' borrador'+(sent!==1?'es':'')+' creado'+(sent!==1?'s':'')+' en Gmail — revisa y envía desde info@stpeters.cl');}
+    else{showToast('⚠️ '+sent+' ok · Falló: '+failed.join(', '));}
+  }
+
+  checked.forEach(r=>{
     var htmlBody=buildEmailHTML(acts,r,wl,wn);
-    try{
-      var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',max_tokens:1024,
-        system:'Eres un asistente que crea borradores en Gmail usando la herramienta gmail_create_draft. Crea el borrador exactamente con los datos que te pasen. No respondas nada más.',
-        messages:[{role:'user',content:'Crea un borrador de Gmail con estos datos:\n- to: '+r.email+'\n- subject: '+subject+'\n- body (HTML): '+htmlBody}],
-        mcp_servers:[{type:'url',url:'https://gmailmcp.googleapis.com/mcp/v1',name:'gmail'}]
-      })});
-      var data=await res.json();
-      var ok=data&&data.content&&data.content.some(c=>c.type==='mcp_tool_use'||c.type==='mcp_tool_result');
-      if(ok)sent++;else failed.push(r.name);
-    }catch(e){failed.push(r.name);}
-  }
-
-  btn.disabled=false;
-  btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Enviar agenda';
-  if(!failed.length){
-    showToast('✅ '+sent+' borrador'+(sent!==1?'es':'')+' creado'+(sent!==1?'s':'')+' en Gmail — revisa y envía desde info@stpeters.cl');
-  }else{
-    showToast('⚠️ '+sent+' ok · Falló: '+failed.join(', '));
-  }
+    var plainBody='Agenda Semanal Semana '+wn+' — '+wl+'\nPara: '+r.name+'\n\nSaint Peter\'s School · info@stpeters.cl';
+    sendPromptCreateDraft(r.email,subject,htmlBody,plainBody)
+      .then(ok=>{if(ok)sent++;else failed.push(r.name);})
+      .catch(()=>failed.push(r.name))
+      .finally(()=>{done++;if(done===total)finish();});
+  });
 });
+
+function sendPromptCreateDraft(to,subject,htmlBody,plainBody){
+  return fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      model:'claude-sonnet-4-20250514',
+      max_tokens:512,
+      system:'Eres un asistente que crea borradores de Gmail. Usa SIEMPRE la herramienta gmail_create_draft con los parámetros exactos que recibas. No respondas texto, solo ejecuta la herramienta.',
+      messages:[{role:'user',content:JSON.stringify({action:'create_draft',to:[to],subject:subject,htmlBody:htmlBody,body:plainBody})}],
+      mcp_servers:[{type:'url',url:'https://gmailmcp.googleapis.com/mcp/v1',name:'gmail'}]
+    })
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    if(!data||!data.content)return false;
+    return data.content.some(c=>c.type==='mcp_tool_use'||c.type==='mcp_tool_result');
+  });
+}
 on('#btn-copy-preview','click',()=>{navigator.clipboard.writeText(Q('#email-preview').innerText).then(()=>showToast('📋 Texto copiado'));});
 on('#btn-pdf-todos','click',()=>{var wn=getWeekNumber(getWeekStart(enviarWeekOffset));generatePDF(RECIPIENTS.map((_,i)=>i),'SPS_Agenda_Completa_Sem'+wn+'.pdf');});
 on('#btn-tv-preview','click',()=>{Q('#tv-screen').innerHTML=buildTVInner();Q('#tv-overlay').classList.add('open');scaleEl(Q('#tv-screen'),1280,720);startTVClock();});
