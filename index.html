@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Saint Peter's School · Agenda</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3',system-ui,sans-serif;background:#F7F6F4;color:#1A1A1A;font-size:14px;line-height:1.5;min-height:100vh}
+.app-header{background:#D33A2E;border-bottom:3px solid #B8960C;padding:0 24px;position:sticky;top:0;z-index:100}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:70px;max-width:1200px;margin:0 auto;gap:16px}
+.header-brand h1{font-family:'EB Garamond',Georgia,serif;font-size:22px;font-weight:600;color:#fff;line-height:1}
+.header-brand p{font-size:10.5px;color:rgba(255,255,255,.7);letter-spacing:.1em;text-transform:uppercase}
+.hd{width:1px;height:36px;background:rgba(255,255,255,.25);flex-shrink:0}
+.hs{font-family:'EB Garamond',Georgia,serif;font-size:17px;font-style:italic;color:rgba(255,255,255,.88)}
+.hdr-btns{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.btn-hdr{background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.5);padding:7px 14px;border-radius:6px;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;transition:background .15s}
+.btn-hdr:hover{background:rgba(255,255,255,.28)}
+.tabs-bar{background:#fff;border-bottom:1px solid #E2E0DC}
+.tabs-inner{display:flex;max-width:1200px;margin:0 auto;padding:0 24px;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs-inner::-webkit-scrollbar{display:none}
+.tab-btn{padding:12px 20px 11px;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:500;color:#5C5A55;background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .15s,border-color .15s}
+.tab-btn:hover{color:#D33A2E}
+.tab-btn.active{color:#D33A2E;border-bottom-color:#D33A2E;font-weight:600}
+.app-main{max-width:1200px;margin:0 auto;padding:24px}
+.tab-panel{display:none}.tab-panel.active{display:block}
+.week-sel{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid #E2E0DC;border-radius:10px;padding:14px 20px;margin-bottom:20px}
+.week-nav{display:flex;align-items:center;gap:10px}
+.week-btn{background:none;border:1px solid #E2E0DC;border-radius:4px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#5C5A55;font-size:16px;transition:all .15s}
+.week-btn:hover{border-color:#D33A2E;color:#D33A2E}
+.week-lbl{font-family:'EB Garamond',Georgia,serif;font-size:17px;font-weight:500;min-width:220px;text-align:center}
+.week-meta{display:flex;align-items:center;gap:14px}
+.wbadge{font-size:11px;background:#f0f1f3;color:#5C5A55;padding:3px 10px;border-radius:20px;border:1px solid #E2E0DC;font-weight:500;text-transform:uppercase;letter-spacing:.04em}
+.act-count{font-size:13px;color:#5C5A55}.act-count strong{color:#D33A2E;font-size:18px;font-family:'EB Garamond',Georgia,serif}
+.chips-sec{margin-bottom:20px}
+.sec-ttl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#9A9690;margin-bottom:12px}
+.chips-list{display:flex;flex-wrap:wrap;gap:8px}
+.activity-chip{display:flex;align-items:center;gap:6px;padding:6px 12px;background:#fff;border:1px solid #E2E0DC;border-radius:20px;font-size:13px;cursor:pointer;transition:all .15s;color:#5C5A55}
+.activity-chip:hover{border-color:#D33A2E;color:#D33A2E}
+.activity-chip.selected{background:#D33A2E;border-color:#D33A2E;color:#fff;font-weight:500}
+.activity-chip.selected .cdot{background:rgba(255,255,255,.6)!important}
+.cdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.content-grid{display:grid;grid-template-columns:320px 1fr;gap:20px;align-items:start}
+@media(max-width:900px){.content-grid{grid-template-columns:1fr}}
+.panel{background:#fff;border:1px solid #E2E0DC;border-radius:10px;overflow:hidden}
+.panel-hdr{padding:14px 18px;border-bottom:1px solid #E2E0DC;display:flex;align-items:center;justify-content:space-between;background:#FAFAF8}
+.panel-ttl{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5C5A55}
+.btn-add{display:flex;align-items:center;gap:5px;padding:6px 13px;background:#D33A2E;color:#fff;border:none;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:background .15s}
+.btn-add:hover{background:#b02e23}
+.activity-list{list-style:none}
+.act-item{display:flex;align-items:stretch;border-bottom:1px solid #E2E0DC;cursor:pointer;transition:background .1s}
+.act-item:last-child{border-bottom:none}
+.act-item:hover{background:#F7F6F4}
+.act-item.active{background:#f5e8e7}
+.aib{padding:13px 14px;flex:1;min-width:0}
+.ai-day{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#9A9690;margin-bottom:3px}
+.ai-title{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.ai-meta{font-size:11px;color:#9A9690;display:flex;gap:8px;flex-wrap:wrap}
+.ait{padding:13px 14px 13px 0;font-size:12px;font-weight:600;color:#5C5A55;flex-shrink:0;text-align:right;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:4px}
+.tbadge{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:600}
+.tb-assembly{background:#f5e8e7;color:#D33A2E}.tb-salida{background:#f5f0e0;color:#7a6100}.tb-acto{background:#EAF0F7;color:#3a6489}.tb-reunion{background:#EAF5EC;color:#3a7046}.tb-coordinacion{background:#f0f1f3;color:#5a5f69}.tb-sport{background:#e8f5ee;color:#1a7a3c}
+.del-btn{background:none;border:1px solid transparent;border-radius:4px;color:#9A9690;cursor:pointer;padding:4px 5px;display:flex;align-items:center;transition:all .15s;margin-top:2px}
+.del-btn:hover{color:#D33A2E;border-color:#f0c0bc;background:#f5e8e7}
+.form-panel{background:#fff;border:1px solid #E2E0DC;border-radius:10px}
+.fph{padding:16px 22px;border-bottom:2px solid #D33A2E;display:flex;align-items:center;justify-content:space-between;border-radius:10px 10px 0 0}
+.fph-title{font-family:'EB Garamond',Georgia,serif;font-size:18px;font-weight:500}
+.fph-sub{font-size:12px;color:#9A9690;margin-top:1px}
+.sind{display:flex;align-items:center;gap:6px;font-size:11px;color:#4a9052;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.sdot{width:8px;height:8px;background:#4a9052;border-radius:50%;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.fbody{padding:22px}
+.fsec{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid #E2E0DC}
+.fsec:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.fsec-ttl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#D33A2E;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.fsec-ttl::after{content:'';flex:1;height:1px;background:#f5e8e7}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg.c3{grid-template-columns:1fr 1fr 1fr}.fg.c1{grid-template-columns:1fr}
+.fgrp{display:flex;flex-direction:column;gap:4px}
+.fgrp.s2{grid-column:span 2}
+label{font-size:11px;font-weight:600;color:#5C5A55;letter-spacing:.04em;text-transform:uppercase}
+label .req{color:#D33A2E;margin-left:2px}
+input[type=text],input[type=time],input[type=date],input[type=number],input[type=email],select,textarea{width:100%;padding:9px 12px;border:1px solid #E2E0DC;border-radius:4px;font-family:'Source Sans 3',sans-serif;font-size:13px;color:#1A1A1A;background:#fff;outline:none;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{border-color:#D33A2E;box-shadow:0 0 0 3px rgba(211,58,46,.1)}
+textarea{resize:vertical;min-height:72px}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235C5A55' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px;cursor:pointer}
+
+/* Autocomplete people picker */
+.ac-wrap{position:relative}
+.ac-tags{display:flex;flex-wrap:wrap;gap:5px;padding:6px 8px;border:1px solid #E2E0DC;border-radius:4px;min-height:38px;cursor:text;transition:border-color .15s,box-shadow .15s;background:#fff}
+.ac-tags.focused{border-color:#D33A2E;box-shadow:0 0 0 3px rgba(211,58,46,.1)}
+.ac-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px 2px 10px;background:#D33A2E;color:#fff;border-radius:12px;font-size:12px;font-weight:500;white-space:nowrap}
+.ac-tag-rm{background:none;border:none;color:rgba(255,255,255,.8);cursor:pointer;font-size:15px;line-height:1;padding:0 1px;font-family:'Source Sans 3',sans-serif}
+.ac-tag-rm:hover{color:#fff}
+.ac-input{border:none;outline:none;font-family:'Source Sans 3',sans-serif;font-size:13px;color:#1A1A1A;background:transparent;flex:1;min-width:120px;padding:2px 4px}
+.ac-dropdown{position:absolute;top:calc(100% + 3px);left:0;right:0;background:#fff;border:1px solid #E2E0DC;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:60;max-height:200px;overflow-y:auto;display:none}
+.ac-dropdown.open{display:block}
+.ac-opt{padding:8px 14px;font-size:13px;cursor:pointer;transition:background .1s;display:flex;align-items:center;gap:8px}
+.ac-opt:hover,.ac-opt.focused{background:#f5e8e7}
+.ac-opt-avatar{width:24px;height:24px;border-radius:50%;background:#D33A2E;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ac-empty{padding:10px 14px;font-size:12px;color:#9A9690;font-style:italic}
+.pactions{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.btn-ap{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:#F7F6F4;border:1px dashed #C8C5BF;border-radius:4px;font-size:11px;font-weight:600;color:#5C5A55;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:all .15s}
+.btn-ap:hover{border-color:#D33A2E;color:#D33A2E;background:#f5e8e7}
+.fbadge{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600;display:inline-flex;align-items:center;gap:4px}
+.fbadge.ok{background:#EAF5EC;color:#3a7046}
+.csel{position:relative}
+.ctrig{width:100%;padding:9px 12px;border:1px solid #E2E0DC;border-radius:4px;font-family:'Source Sans 3',sans-serif;font-size:13px;color:#9A9690;background:#fff;text-align:left;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:38px;transition:border-color .15s}
+.ctrig.open,.ctrig:focus{border-color:#D33A2E;box-shadow:0 0 0 3px rgba(211,58,46,.1);outline:none}
+.carr{flex-shrink:0;color:#9A9690;transition:transform .2s}
+.ctrig.open .carr{transform:rotate(180deg)}
+.cdd{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid #E2E0DC;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:50;display:none;max-height:280px;overflow-y:auto}
+.cdd.open{display:block}
+.cghdr{padding:8px 12px 4px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#D33A2E;background:#f5e8e7;border-top:1px solid #E2E0DC;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1}
+.cghdr:first-child{border-top:none}
+.cgsa{font-size:10px;font-weight:600;color:#D33A2E;background:none;border:none;cursor:pointer;padding:0;font-family:'Source Sans 3',sans-serif;opacity:.8}
+.cgsa:hover{opacity:1}
+.copt{display:flex;align-items:center;gap:10px;padding:8px 14px;cursor:pointer;font-size:13px;transition:background .1s}
+.copt:hover{background:#F7F6F4}
+.copt.selected{background:#f5e8e7}
+.copt input[type=checkbox]{appearance:none;width:15px;height:15px;border:1.5px solid #C8C5BF;border-radius:3px;cursor:pointer;flex-shrink:0;background:#fff;position:relative;transition:all .15s}
+.copt input[type=checkbox]:checked{background:#D33A2E;border-color:#D33A2E}
+.copt input[type=checkbox]:checked::after{content:'';position:absolute;left:2px;top:1px;width:9px;height:5px;border:2px solid #fff;border-top:none;border-right:none;transform:rotate(-45deg)}
+.cchips{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.cchip{display:inline-flex;align-items:center;gap:4px;padding:3px 8px 3px 10px;background:#D33A2E;color:#fff;border-radius:12px;font-size:11px;font-weight:600}
+.cchiprm{background:none;border:none;color:rgba(255,255,255,.8);cursor:pointer;font-size:14px;line-height:1;padding:0 1px;font-family:'Source Sans 3',sans-serif}
+.cchiprm:hover{color:#fff}
+.cgchip{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;background:#b02e23;color:#fff;border-radius:12px;font-size:11px;font-weight:600}
+
+/* Alumnos multi-select with autocomplete */
+.alumno-picker{background:#F7F6F4;border:1px solid #E2E0DC;border-radius:6px;padding:10px;margin-top:4px}
+.alumno-search-wrap{position:relative;margin-bottom:8px}
+.alumno-search{width:100%;padding:7px 10px;border:1px solid #E2E0DC;border-radius:4px;font-family:'Source Sans 3',sans-serif;font-size:12px;outline:none;background:#fff;transition:border-color .15s}
+.alumno-search:focus{border-color:#D33A2E;box-shadow:0 0 0 3px rgba(211,58,46,.1)}
+.alumno-dd{position:absolute;top:calc(100% + 3px);left:0;right:0;background:#fff;border:1px solid #E2E0DC;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:55;max-height:180px;overflow-y:auto;display:none}
+.alumno-dd.open{display:block}
+.alumno-dd-opt{padding:7px 12px;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background .1s}
+.alumno-dd-opt:hover{background:#f5e8e7}
+.alumno-dd-opt input[type=checkbox]{appearance:none;width:13px;height:13px;border:1.5px solid #C8C5BF;border-radius:3px;cursor:pointer;flex-shrink:0;background:#fff;position:relative}
+.alumno-dd-opt input[type=checkbox]:checked{background:#D33A2E;border-color:#D33A2E}
+.alumno-dd-opt input[type=checkbox]:checked::after{content:'';position:absolute;left:1px;top:0;width:8px;height:5px;border:2px solid #fff;border-top:none;border-right:none;transform:rotate(-45deg)}
+.alumno-selected-tags{display:flex;flex-wrap:wrap;gap:5px;min-height:26px}
+.alumno-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px 2px 10px;background:#3a6489;color:#fff;border-radius:12px;font-size:11px;font-weight:500}
+.alumno-tag-rm{background:none;border:none;color:rgba(255,255,255,.8);cursor:pointer;font-size:14px;line-height:1;padding:0 1px}
+.alumno-tag-rm:hover{color:#fff}
+.alumno-acts{display:flex;gap:6px;margin-top:8px;align-items:center;flex-wrap:wrap}
+.btn-alsm{font-size:11px;padding:4px 9px;border:1px solid #E2E0DC;border-radius:4px;background:#fff;color:#5C5A55;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:all .15s}
+.btn-alsm:hover{border-color:#D33A2E;color:#D33A2E}
+.alumno-count{font-size:11px;color:#9A9690;margin-left:auto}
+
+.cbgrid{display:flex;flex-wrap:wrap;gap:10px}
+.cblbl{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13px;text-transform:none;letter-spacing:0;font-weight:400;color:#1A1A1A}
+.cblbl input[type=checkbox]{appearance:none;width:16px;height:16px;border:1.5px solid #C8C5BF;border-radius:3px;cursor:pointer;flex-shrink:0;background:#fff;position:relative;transition:all .15s}
+.cblbl input[type=checkbox]:checked{background:#D33A2E;border-color:#D33A2E}
+.cblbl input[type=checkbox]:checked::after{content:'';position:absolute;left:3px;top:1px;width:8px;height:5px;border:2px solid #fff;border-top:none;border-right:none;transform:rotate(-45deg)}
+.rgrp{display:flex;gap:10px;flex-wrap:wrap}
+.rlbl{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;text-transform:none;letter-spacing:0;font-weight:400;color:#1A1A1A}
+.rlbl input[type=radio]{appearance:none;width:16px;height:16px;border:1.5px solid #C8C5BF;border-radius:50%;cursor:pointer;flex-shrink:0;background:#fff;position:relative;transition:all .15s}
+.rlbl input[type=radio]:checked{border-color:#D33A2E;background:#D33A2E}
+.rlbl input[type=radio]:checked::after{content:'';position:absolute;top:3px;left:3px;width:8px;height:8px;background:#fff;border-radius:50%}
+.portbox{background:#F7F6F4;border:1px solid #E2E0DC;border-radius:6px;padding:14px;margin-top:12px}
+.portrow{display:flex;align-items:center;gap:5px}
+.portnum{font-size:11px;font-weight:700;color:#9A9690;min-width:20px;text-align:right}
+.portempty{font-size:12px;color:#9A9690;padding:6px 0;font-style:italic}
+.tgrid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-top:10px}
+.roles-chips{display:flex;flex-wrap:wrap;gap:8px}
+.role-chip{padding:6px 14px;border:1.5px solid #E2E0DC;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;color:#5C5A55;background:#fff;transition:all .15s}
+.role-chip:hover{border-color:#D33A2E;color:#D33A2E}
+.role-chip.selected{background:#D33A2E;border-color:#D33A2E;color:#fff}
+.form-actions{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-top:1px solid #E2E0DC;background:#FAFAF8;border-radius:0 0 10px 10px;gap:10px;flex-wrap:wrap}
+.btn-sec{padding:9px 18px;border:1px solid #C8C5BF;border-radius:6px;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:500;color:#5C5A55;background:#fff;cursor:pointer;transition:all .15s}
+.btn-sec:hover{border-color:#D33A2E;color:#D33A2E}
+.btn-pri{padding:9px 22px;background:#D33A2E;border:none;border-radius:6px;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;color:#fff;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background .15s}
+.btn-pri:hover{background:#b02e23}
+.btn-danger{padding:9px 18px;border:1px solid #f0c0bc;border-radius:6px;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:500;color:#D33A2E;background:#fff;cursor:pointer;transition:all .15s}
+.btn-danger:hover{background:#f5e8e7}
+.rol-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.rol-card{background:#fff;border:1px solid #E2E0DC;border-radius:10px;overflow:hidden}
+.rol-card-hdr{padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #E2E0DC}
+.rol-ttl{font-size:14px;font-weight:700}.rol-cnt{font-size:11px;color:#9A9690}
+.rol-acts{padding:12px 16px;display:flex;flex-direction:column;gap:10px}
+.rol-ai{font-size:13px;display:flex;gap:8px;align-items:flex-start}
+.rol-day{font-size:10px;background:#F7F6F4;border:1px solid #E2E0DC;border-radius:3px;padding:1px 5px;font-weight:700;color:#5C5A55;flex-shrink:0;margin-top:1px}
+.epanel{background:#fff;border:1px solid #E2E0DC;border-radius:10px;padding:28px}
+.ettl{font-family:'EB Garamond',Georgia,serif;font-size:22px;font-weight:500;margin-bottom:6px}
+.esub{color:#5C5A55;font-size:13px;margin-bottom:18px}
+.ritem{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid #E2E0DC;border-radius:6px;background:#F7F6F4;margin-bottom:8px}
+.rav{width:36px;height:36px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+.rinfo{flex:1}.rname{font-size:13px;font-weight:600}
+.remail-edit{font-size:12px;padding:5px 8px;border:1px solid #E2E0DC;border-radius:4px;font-family:'Source Sans 3',sans-serif;background:#fff;color:#1A1A1A;width:200px;outline:none;transition:border-color .15s}
+.remail-edit:focus{border-color:#D33A2E}
+.rtog input[type=checkbox]{appearance:none;width:36px;height:20px;border-radius:10px;background:#E2E0DC;cursor:pointer;position:relative;transition:background .2s}
+.rtog input[type=checkbox]:checked{background:#D33A2E}
+.rtog input[type=checkbox]::after{content:'';position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:2px;left:2px;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.rtog input[type=checkbox]:checked::after{transform:translateX(16px)}
+.prevbox{background:#F7F6F4;border:1px solid #E2E0DC;border-radius:6px;padding:18px;max-height:460px;overflow-y:auto}
+.prpb{background:none;border:1px solid #E2E0DC;border-radius:4px;cursor:pointer;font-size:14px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.prpb:hover,.prpb.active{border-color:#D33A2E;background:#f5e8e7}
+.istrip{background:#f5e8e7;border:1px solid #f0c0bc;border-radius:4px;padding:8px 12px;font-size:12px;color:#b02e23;display:flex;align-items:center;gap:6px}
+.pdf-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:none;border-radius:6px;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.pdf-btn.dark{background:#1a1a1a;color:#fff}.pdf-btn.dark:hover{background:#333}
+.pdf-btn.outline{background:#fff;color:#D33A2E;border:1.5px solid #D33A2E}.pdf-btn.outline:hover{background:#f5e8e7}
+.proj-controls{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid #E2E0DC;border-radius:10px;padding:14px 20px;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.proj-acts{display:flex;gap:8px;flex-wrap:wrap}
+.btn-pout{display:flex;align-items:center;gap:7px;padding:8px 16px;background:#fff;border:1.5px solid #D33A2E;border-radius:6px;color:#D33A2E;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-pout:hover{background:#f5e8e7}
+.btn-pout.gold{border-color:#B8960C;color:#7a6100}.btn-pout.gold:hover{background:#f5f0e0}
+.btn-pfill{display:flex;align-items:center;gap:7px;padding:8px 16px;background:#D33A2E;border:none;border-radius:6px;color:#fff;font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:background .15s}
+.btn-pfill:hover{background:#b02e23}
+.proj-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+@media(max-width:800px){.proj-grid{grid-template-columns:1fr 1fr}}
+.day-col{background:#fff;border:1px solid #E2E0DC;border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.day-hdr-c{padding:10px 12px;text-align:center;border-bottom:1px solid #E2E0DC;background:#FAFAF8;flex-shrink:0}
+.day-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#5C5A55}
+.day-date{font-family:'EB Garamond',Georgia,serif;font-size:24px;color:#1A1A1A;line-height:1.1;margin-top:2px}
+.day-col.today .day-hdr-c{background:#D33A2E}
+.day-col.today .day-name,.day-col.today .day-date{color:#fff}
+.day-body{padding:6px;overflow-y:auto;flex:1;min-height:60px;max-height:520px}
+.pjcard{border-left:3px solid #D33A2E;padding:7px 8px;margin-bottom:6px;background:#FAFAF8;border-radius:0 4px 4px 0}
+.pjtype{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.pjtitle{font-size:12px;font-weight:700;color:#1A1A1A;margin-bottom:3px;line-height:1.3}
+.pjrow{font-size:11px;color:#5C5A55;margin-bottom:1px;line-height:1.5}
+.pjtr{font-size:10px;color:#7a6100;background:#f5f0e0;border-radius:3px;padding:2px 5px;margin-top:3px;display:inline-block}
+.day-empty{font-size:11px;color:#9A9690;padding:10px 6px;font-style:italic;text-align:center}
+.tv-overlay{display:none;position:fixed;inset:0;background:#0a0a0a;z-index:500;flex-direction:column}
+.tv-overlay.open{display:flex}
+.tv-cbar{background:#111;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #222;flex-shrink:0}
+.tv-hint{font-size:12px;color:rgba(255,255,255,.5)}
+.tv-abtn{display:flex;align-items:center;gap:6px;padding:7px 14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:4px;color:#fff;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:background .15s}
+.tv-abtn:hover{background:rgba(255,255,255,.16)}
+.tv-fw{flex:1;display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}
+.tv-screen,.slide-scr{background:#0f0f0f;position:relative;overflow:hidden;border-radius:4px;box-shadow:0 0 0 3px #222,0 20px 60px rgba(0,0,0,.8);transform-origin:center center;flex-shrink:0;width:1280px;height:720px}
+.slide-scr{background:#0f0f14}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:10px;width:100%;max-width:460px;box-shadow:0 20px 60px rgba(0,0,0,.2);overflow:hidden;animation:mIn .2s ease}
+@keyframes mIn{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-hdr{padding:16px 20px;border-bottom:1px solid #E2E0DC;display:flex;align-items:center;justify-content:space-between}
+.modal-ttl{font-family:'EB Garamond',Georgia,serif;font-size:18px;font-weight:500}
+.modal-close{background:none;border:none;cursor:pointer;color:#9A9690;font-size:20px;line-height:1;padding:2px 6px}
+.modal-body{padding:20px;font-size:13px;line-height:1.6}
+.modal-footer{padding:14px 20px;border-top:1px solid #E2E0DC;display:flex;justify-content:flex-end;gap:10px}
+.toast{position:fixed;bottom:24px;right:24px;background:#1a1a1a;color:#fff;padding:12px 20px;border-radius:6px;font-size:13px;font-weight:500;z-index:9999;opacity:0;transform:translateY(10px);transition:all .25s;max-width:320px;border-left:3px solid #D33A2E;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+.toast.show{opacity:1;transform:translateY(0)}
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:#C8C5BF;border-radius:3px}
+.cfg-layout{display:grid;grid-template-columns:220px 1fr;gap:20px;align-items:start}
+@media(max-width:800px){.cfg-layout{grid-template-columns:1fr}}
+.cfg-sidebar{background:#fff;border:1px solid #E2E0DC;border-radius:10px;overflow:hidden;position:sticky;top:90px}
+.cfg-sidebar-item{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid #E2E0DC;cursor:pointer;font-size:13px;color:#5C5A55;transition:background .1s;user-select:none}
+.cfg-sidebar-item:last-child{border-bottom:none}
+.cfg-sidebar-item:hover{background:#F7F6F4}
+.cfg-sidebar-item.active{background:#f5e8e7;color:#D33A2E;font-weight:600}
+.cfg-sidebar-item .csi-icon{font-size:16px;flex-shrink:0}
+.cfg-content{display:flex;flex-direction:column;gap:16px}
+.cfg-section{background:#fff;border:1px solid #E2E0DC;border-radius:10px;overflow:hidden;display:none}
+.cfg-section.active{display:block}
+.cfg-sec-hdr{padding:16px 20px;border-bottom:2px solid #D33A2E;display:flex;align-items:center;justify-content:space-between;background:#FAFAF8}
+.cfg-sec-title{font-family:'EB Garamond',Georgia,serif;font-size:18px;font-weight:500}
+.cfg-sec-sub{font-size:12px;color:#9A9690;margin-top:2px}
+.cfg-sec-body{padding:20px}
+.rec-card{border:1px solid #E2E0DC;border-radius:8px;margin-bottom:12px;overflow:hidden}
+.rec-card:last-child{margin-bottom:0}
+.rec-card-hdr{padding:12px 16px;background:#FAFAF8;display:flex;align-items:center;gap:12px;border-bottom:1px solid #E2E0DC}
+.rec-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.rec-info{flex:1}
+.rec-name-input{font-size:14px;font-weight:600;border:none;background:transparent;outline:none;color:#1A1A1A;width:100%;padding:0;font-family:'Source Sans 3',sans-serif}
+.rec-email-input{font-size:12px;border:none;background:transparent;outline:none;color:#9A9690;width:100%;padding:0;font-family:'Source Sans 3',sans-serif;margin-top:2px}
+.rec-card-body{padding:14px 16px}
+.sec-toggles{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.sec-tog{display:flex;align-items:center;gap:6px;padding:5px 12px;border:1.5px solid #E2E0DC;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;user-select:none;color:#5C5A55;background:#F7F6F4;transition:all .15s}
+.sec-tog input{display:none}
+.sec-tog.on{background:#D33A2E;border-color:#D33A2E;color:#fff}
+.rec-role-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.rec-role-lbl{font-size:11px;font-weight:600;color:#9A9690;letter-spacing:.04em;text-transform:uppercase}
+.role-sel{font-size:12px;padding:5px 10px;border:1px solid #E2E0DC;border-radius:4px;font-family:'Source Sans 3',sans-serif;background:#fff;color:#1A1A1A;outline:none;cursor:pointer}
+.color-dot-pick{display:flex;gap:6px;align-items:center}
+.color-dot{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .15s;flex-shrink:0}
+.color-dot.selected{border-color:#1A1A1A;transform:scale(1.15)}
+.btn-rec-del{background:none;border:1px solid #f0c0bc;border-radius:4px;color:#D33A2E;cursor:pointer;padding:5px 10px;font-size:11px;font-weight:600;font-family:'Source Sans 3',sans-serif;transition:all .15s}
+.btn-rec-del:hover{background:#f5e8e7}
+.btn-rec-add{display:flex;align-items:center;gap:6px;padding:10px 16px;background:#F7F6F4;border:1.5px dashed #C8C5BF;border-radius:8px;width:100%;justify-content:center;font-size:13px;font-weight:600;color:#5C5A55;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:all .15s;margin-top:12px}
+.btn-rec-add:hover{border-color:#D33A2E;color:#D33A2E;background:#f5e8e7}
+.type-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #E2E0DC}
+.type-row:last-child{border-bottom:none}
+.type-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.type-name-input{flex:1;font-size:13px;border:1px solid transparent;border-radius:4px;padding:5px 8px;font-family:'Source Sans 3',sans-serif;background:transparent;outline:none;color:#1A1A1A}
+.type-name-input:focus{border-color:#D33A2E;background:#fff}
+.type-color-input{width:32px;height:32px;border:1px solid #E2E0DC;border-radius:4px;cursor:pointer;padding:2px}
+.roles-cfg-list{display:flex;flex-direction:column;gap:8px}
+.role-cfg-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid #E2E0DC;border-radius:6px;background:#FAFAF8}
+.role-cfg-input{flex:1;font-size:13px;border:1px solid transparent;border-radius:4px;padding:5px 8px;font-family:'Source Sans 3',sans-serif;background:transparent;outline:none;color:#1A1A1A}
+.role-cfg-input:focus{border-color:#D33A2E;background:#fff}
+.role-cfg-del{background:none;border:1px solid transparent;border-radius:4px;color:#9A9690;cursor:pointer;padding:4px;transition:all .15s}
+.role-cfg-del:hover{color:#D33A2E;border-color:#f0c0bc;background:#f5e8e7}
+.courses-cfg-panel{border:1px solid #E2E0DC;border-radius:8px;overflow:hidden;margin-bottom:12px}
+.courses-cfg-group-hdr{padding:10px 14px;background:#FAFAF8;border-bottom:1px solid #E2E0DC;display:flex;align-items:center;gap:8px;justify-content:space-between}
+.courses-cfg-group-name{font-size:12px;font-weight:700;color:#5C5A55;letter-spacing:.06em;text-transform:uppercase;border:none;background:transparent;font-family:'Source Sans 3',sans-serif;outline:none}
+.courses-cfg-group-name:focus{background:#fff;border-bottom:1px solid #D33A2E}
+.courses-cfg-list-inner{padding:8px 14px;display:flex;flex-direction:column;gap:4px}
+.course-cfg-row{display:flex;align-items:center;gap:8px}
+.course-cfg-input{flex:1;font-size:13px;border:1px solid transparent;border-radius:4px;padding:5px 8px;font-family:'Source Sans 3',sans-serif;background:transparent;outline:none}
+.course-cfg-input:focus{border-color:#D33A2E;background:#fff}
+.course-cfg-del{background:none;border:1px solid transparent;border-radius:4px;color:#C8C5BF;cursor:pointer;padding:3px;font-size:14px;transition:all .15s}
+.course-cfg-del:hover{color:#D33A2E;border-color:#f0c0bc;background:#f5e8e7}
+.sections-list{display:flex;flex-direction:column;gap:8px}
+.section-cfg-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid #E2E0DC;border-radius:6px}
+.section-cfg-input{flex:1;font-size:13px;border:1px solid transparent;border-radius:4px;padding:5px 8px;font-family:'Source Sans 3',sans-serif;background:transparent;outline:none;color:#1A1A1A}
+.section-cfg-input:focus{border-color:#D33A2E;background:#fff}
+.reqs-list{display:flex;flex-direction:column;gap:6px}
+.req-cfg-row{display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid #E2E0DC;border-radius:6px}
+.req-cfg-emoji{font-size:16px;flex-shrink:0;width:28px;text-align:center}
+.req-cfg-input{flex:1;font-size:13px;border:1px solid transparent;border-radius:4px;padding:4px 8px;font-family:'Source Sans 3',sans-serif;background:transparent;outline:none;color:#1A1A1A}
+.req-cfg-input:focus{border-color:#D33A2E;background:#fff}
+.req-cfg-del{background:none;border:1px solid transparent;border-radius:4px;color:#C8C5BF;cursor:pointer;padding:3px;font-size:14px;transition:all .15s}
+.req-cfg-del:hover{color:#D33A2E}
+.btn-cfg-add{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:#F7F6F4;border:1px dashed #C8C5BF;border-radius:4px;font-size:12px;font-weight:600;color:#5C5A55;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:all .15s;margin-top:8px}
+.btn-cfg-add:hover{border-color:#D33A2E;color:#D33A2E;background:#f5e8e7}
+
+/* People list config */
+.people-cfg-list{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.people-cfg-row{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid #E2E0DC;border-radius:5px;background:#FAFAF8}
+.people-cfg-input{flex:1;font-size:13px;border:none;background:transparent;outline:none;font-family:'Source Sans 3',sans-serif;color:#1A1A1A}
+.people-cfg-del{background:none;border:1px solid transparent;border-radius:4px;color:#C8C5BF;cursor:pointer;padding:3px;font-size:14px;transition:all .15s}
+.people-cfg-del:hover{color:#D33A2E}
+.csv-upload-area{border:2px dashed #C8C5BF;border-radius:6px;padding:14px;text-align:center;cursor:pointer;transition:all .15s;background:#FAFAF8;margin-top:6px}
+.csv-upload-area:hover{border-color:#D33A2E;background:#f5e8e7}
+.csv-upload-area input[type=file]{display:none}
+.csv-upload-label{font-size:12px;font-weight:600;color:#5C5A55;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer}
+</style>
+</head>
+<body>
+<header class="app-header">
+  <div class="header-inner">
+    <div class="header-brand"><h1>Saint Peter's School</h1><p>Colegio Británico · Viña del Mar · Desde 1918</p></div>
+    <div class="hd"></div>
+    <span class="hs">Calendario de Actividades</span>
+    <div class="hdr-btns">
+      <button class="btn-hdr" id="btn-guardar"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>Guardar</button>
+    </div>
+  </div>
+</header>
+<nav class="tabs-bar">
+  <div class="tabs-inner">
+    <button class="tab-btn active" data-tab="ingresar">✏️ Ingresar</button>
+    <button class="tab-btn" data-tab="por-rol">👥 Por Rol</button>
+    <button class="tab-btn" data-tab="enviar">📤 Enviar</button>
+    <button class="tab-btn" data-tab="proyeccion">📅 Proyección</button>
+    <button class="tab-btn" data-tab="configuracion">⚙️ Configuración</button>
+  </div>
+</nav>
+<main class="app-main">
+
+<!-- TAB INGRESAR -->
+<div class="tab-panel active" id="tab-ingresar">
+  <div class="week-sel">
+    <div class="week-nav">
+      <button class="week-btn" id="wk-prev">&#8592;</button>
+      <span class="week-lbl" id="week-label">—</span>
+      <button class="week-btn" id="wk-next">&#8594;</button>
+    </div>
+    <div class="week-meta">
+      <span class="wbadge" id="week-number-badge">Sem. 00</span>
+      <span class="act-count"><strong id="act-count">0</strong> actividades esta semana</span>
+    </div>
+  </div>
+  <div class="chips-sec"><div class="sec-ttl">Actividades registradas</div><div class="chips-list" id="chips-list"></div></div>
+  <div class="content-grid">
+    <div class="panel">
+      <div class="panel-hdr">
+        <span class="panel-ttl">Lista semanal</span>
+        <button class="btn-add" id="btn-nueva"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Nueva actividad</button>
+      </div>
+      <ul class="activity-list" id="activity-list"></ul>
+    </div>
+    <div class="form-panel">
+      <div class="fph">
+        <div><div class="fph-title" id="form-panel-title">Nueva actividad</div><div class="fph-sub" id="form-panel-sub">Complete los campos requeridos</div></div>
+        <div class="sind"><span class="sdot"></span>Edición activa</div>
+      </div>
+      <div class="fbody">
+        <div class="fsec">
+          <div class="fsec-ttl">Cuándo y Dónde</div>
+          <div class="fg c3">
+            <div class="fgrp"><label>Día <span class="req">*</span></label><input type="date" id="f-dia-fecha"><div id="f-dia-label" style="font-size:11px;margin-top:3px;min-height:16px;font-weight:600;color:#D33A2E"></div><input type="hidden" id="f-dia"></div>
+            <div class="fgrp"><label>Hora inicio <span class="req">*</span></label><input type="time" id="f-hora" value="08:30"></div>
+            <div class="fgrp"><label>Hora de término</label><input type="time" id="f-retorno" value="10:00"></div>
+            <div class="fgrp s2">
+              <label>Ubicación <span class="req">*</span></label>
+              <div style="display:flex;border:1px solid #E2E0DC;border-radius:4px;overflow:hidden">
+                <button type="button" id="loc-interno-btn" style="flex:1;padding:9px 10px;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;border:none;cursor:pointer;background:#D33A2E;color:#fff;transition:all .15s">🏫 En el colegio</button>
+                <button type="button" id="loc-externo-btn" style="flex:1;padding:9px 10px;font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;border:none;cursor:pointer;background:#fff;color:#5C5A55;border-left:1px solid #E2E0DC;transition:all .15s">🌍 Exterior</button>
+              </div>
+              <input type="hidden" id="f-locacion" value="interno">
+              <input type="text" id="f-lugar" placeholder="Ej: Auditorio, Sala B2, Cancha..." style="margin-top:6px">
+              <div id="f-lugar-ext-row" style="display:none;margin-top:6px"><input type="text" id="f-lugar-dir" placeholder="Dirección completa"></div>
+            </div>
+            <div class="fgrp"><label>Tipo <span class="req">*</span></label><select id="f-tipo"></select></div>
+          </div>
+        </div>
+        <div class="fsec">
+          <div class="fsec-ttl">Descripción</div>
+          <div class="fg c1">
+            <div class="fgrp"><label>Título <span class="req">*</span></label><input type="text" id="f-titulo" placeholder="Ej: Assembly General — Semana de las Artes"></div>
+            <div class="fgrp"><label>Descripción detallada</label><textarea id="f-desc" placeholder="Propósito, contexto y observaciones..."></textarea></div>
+          </div>
+        </div>
+        <div class="fsec">
+          <div class="fsec-ttl">Participantes</div>
+          <div class="fg">
+            <div class="fgrp">
+              <label>Responsables <span class="req">*</span></label>
+              <div class="ac-wrap" id="resp-wrap">
+                <div class="ac-tags" id="resp-tags" tabindex="0">
+                  <input class="ac-input" id="resp-input" placeholder="Buscar o escribir nombre...">
+                </div>
+                <div class="ac-dropdown" id="resp-dropdown"></div>
+              </div>
+            </div>
+            <div class="fgrp">
+              <label>Colaboradores</label>
+              <div class="ac-wrap" id="colab-wrap">
+                <div class="ac-tags" id="colab-tags" tabindex="0">
+                  <input class="ac-input" id="colab-input" placeholder="Buscar o escribir nombre...">
+                </div>
+                <div class="ac-dropdown" id="colab-dropdown"></div>
+              </div>
+            </div>
+          </div>
+          <div class="fg" style="margin-top:14px">
+            <div class="fgrp">
+              <label>Cursos</label>
+              <div class="csel" id="course-selector">
+                <button type="button" class="ctrig" id="course-trigger"><span id="course-trigger-label" style="color:#9A9690;font-size:13px">— Seleccionar cursos —</span><svg class="carr" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="cdd" id="course-dropdown"></div>
+              </div>
+              <div class="cchips" id="course-chips-area"></div>
+            </div>
+            <div class="fgrp">
+              <label>Alumnos / personas que asisten</label>
+              <div class="alumno-picker">
+                <div class="alumno-search-wrap">
+                  <input class="alumno-search" id="alumno-search" placeholder="Buscar alumno o persona...">
+                  <div class="alumno-dd" id="alumno-dd"></div>
+                </div>
+                <div class="alumno-selected-tags" id="alumno-tags"></div>
+                <div class="alumno-acts">
+                  <button class="btn-alsm" id="btn-al-all">Todos del curso</button>
+                  <button class="btn-alsm" id="btn-al-none">Ninguno</button>
+                  <span class="alumno-count" id="alumno-count"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:14px">
+            <label style="margin-bottom:8px;display:block">Autorizar ingreso (Portería)</label>
+            <div class="rgrp">
+              <label class="rlbl"><input type="radio" name="porteria" value="si" id="porteria-si"> Sí, se requiere</label>
+              <label class="rlbl"><input type="radio" name="porteria" value="no" id="porteria-no" checked> No se requiere</label>
+            </div>
+            <div id="porteria-detail" style="display:none" class="portbox">
+              <div class="fg" style="margin-bottom:12px">
+                <div class="fgrp"><label>N° de personas autorizadas</label><input type="number" id="f-porteria-num" min="1" placeholder="Ej: 25"></div>
+                <div class="fgrp"><label>Observación para portería</label><input type="text" id="f-porteria-obs" placeholder="Ej: Presentar credencial..."></div>
+              </div>
+              <div class="fgrp">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+                  <label style="margin:0">Nómina autorizada <span id="porteria-counter" style="font-size:11px;color:#9A9690;font-weight:400;text-transform:none;letter-spacing:0">(0)</span></label>
+                  <button type="button" class="btn-ap" id="btn-add-port"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Agregar</button>
+                </div>
+                <div id="porteria-list" style="display:flex;flex-direction:column;gap:5px"></div>
+                <div id="porteria-empty" class="portempty">Sin personas registradas</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fsec">
+          <div class="fsec-ttl">Traslado</div>
+          <div class="fg">
+            <div class="fgrp"><label>¿Requiere traslado?</label><div class="rgrp" style="margin-top:6px"><label class="rlbl"><input type="radio" name="traslado" value="si" id="traslado-si"> Sí</label><label class="rlbl"><input type="radio" name="traslado" value="no" id="traslado-no" checked> No</label></div></div>
+            <div class="fgrp"><label>Detalle de traslado</label><input type="text" id="f-traslado-det" placeholder="Ej: Bus contratado..."></div>
+          </div>
+          <div class="tgrid" id="traslado-times" style="display:none">
+            <div class="fgrp"><label>🕐 Hora de salida</label><input type="time" id="f-traslado-salida" value="08:00"></div>
+            <div class="fgrp"><label>🕓 Hora de llegada est.</label><input type="time" id="f-traslado-llegada" value="09:00"></div>
+            <div class="fgrp"><label>Tipo de transporte</label><select id="f-bus-tipo"><option value="">— Seleccionar —</option><option>Furgón Escolar Urbano</option><option>Furgón Escolar Grande</option><option>Minibús o Liebre</option><option>Microbús Institucional</option><option>Bus de un piso (Estándar)</option><option>Bus de piso y medio (Turismo)</option><option>Bus de dos pisos (Double Decker)</option></select></div>
+            <div class="fgrp"><label>Capacidad (pasajeros)</label><input type="number" id="f-bus-cap" min="1" max="100" placeholder="Nº pax"></div>
+          </div>
+        </div>
+        <div class="fsec">
+          <div class="fsec-ttl">Requisitos específicos</div>
+          <div class="cbgrid" id="req-checkboxes"></div>
+          <div id="req-otro-row" style="display:none;margin-top:8px"><input type="text" id="req-otro-texto" placeholder="Especifique el requisito..."></div>
+        </div>
+        <div class="fsec">
+          <div class="fsec-ttl">Roles afectados</div>
+          <div class="roles-chips" id="roles-chips"></div>
+        </div>
+        <div class="fsec">
+          <div class="fsec-ttl">Detalles adicionales</div>
+          <div class="fg c1"><div class="fgrp"><label>Observaciones / Notas internas</label><textarea id="f-obs" placeholder="Información adicional para uso interno..." style="min-height:60px"></textarea></div></div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-danger" id="btn-delete" style="display:none">Eliminar</button>
+        <div style="display:flex;gap:8px">
+          <button class="btn-sec" id="btn-limpiar">Limpiar</button>
+          <button class="btn-pri" id="btn-guardar-act"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Guardar actividad</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB POR ROL -->
+<div class="tab-panel" id="tab-por-rol"><div class="rol-grid" id="rol-grid"></div></div>
+
+<!-- TAB ENVIAR -->
+<div class="tab-panel" id="tab-enviar">
+  <div class="epanel">
+    <div class="ettl">Enviar Agenda Semanal</div>
+    <div class="esub">Configure los destinatarios, seleccione la semana y revise la vista previa</div>
+    <div style="background:#F7F6F4;border:1px solid #E2E0DC;border-radius:6px;padding:12px 16px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9A9690">Semana a enviar</div>
+      <div class="week-nav">
+        <button class="week-btn" id="ewk-prev">&#8592;</button>
+        <span style="font-family:'EB Garamond',Georgia,serif;font-size:16px;font-weight:500;min-width:230px;text-align:center" id="enviar-week-label">—</span>
+        <button class="week-btn" id="ewk-next">&#8594;</button>
+        <span class="wbadge" id="enviar-week-badge">Sem. 00</span>
+      </div>
+      <div class="istrip"><strong id="send-count">0</strong>&nbsp;actividades</div>
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;align-items:center;padding:14px 16px;background:#F7F6F4;border:1px solid #E2E0DC;border-radius:8px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#9A9690;flex:1">Exportar PDF</div>
+      <button class="pdf-btn dark" id="btn-pdf-todos"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>PDF Completo</button>
+      <span style="font-size:11px;color:#9A9690">o por destinatario →</span>
+      <div id="pdf-individual-btns" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start">
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9A9690;margin-bottom:10px">Destinatarios</div>
+        <div id="recipient-list"></div>
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+          <button class="btn-pri" id="btn-enviar-agenda" style="flex:1;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Enviar agenda</button>
+          <button class="btn-sec" id="btn-copy-preview">📋 Copiar</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9A9690;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between">
+          <span id="preview-recip-label">Vista previa general</span>
+          <span style="font-size:10px;color:#9A9690;font-weight:400;text-transform:none">👁 para filtrar por rol</span>
+        </div>
+        <div class="prevbox"><div id="email-preview"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB PROYECCION -->
+<div class="tab-panel" id="tab-proyeccion">
+  <div class="proj-controls">
+    <div class="week-nav">
+      <button class="week-btn" id="pwk-prev">&#8592;</button>
+      <span class="week-lbl" id="week-label-proj">—</span>
+      <button class="week-btn" id="pwk-next">&#8594;</button>
+      <span class="wbadge" id="week-num-proj">Sem. 00</span>
+    </div>
+    <div class="proj-acts">
+      <button class="btn-pout gold" id="btn-lamina"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/></svg>Lámina del día</button>
+      <button class="btn-pout" id="btn-tv-preview"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Vista TV</button>
+      <button class="btn-pfill" id="btn-export-tv"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Exportar Rotativo</button>
+    </div>
+  </div>
+  <div class="proj-grid" id="projection-grid"></div>
+  <div class="tv-overlay" id="tv-overlay">
+    <div class="tv-cbar"><span class="tv-hint">Vista TV 16:9 — ESC para cerrar</span><div style="display:flex;gap:8px"><button class="tv-abtn" id="btn-tv-export2">Exportar HTML</button><button class="tv-abtn" id="btn-tv-close">✕ Cerrar</button></div></div>
+    <div class="tv-fw"><div class="tv-screen" id="tv-screen"></div></div>
+  </div>
+  <div class="tv-overlay" id="slide-overlay" style="background:#0a0a12">
+    <div class="tv-cbar"><span class="tv-hint">Lámina del día — ESC para cerrar</span><div style="display:flex;gap:8px;align-items:center"><span style="font-size:12px;color:rgba(255,255,255,.4)">Día:</span><select id="slide-day-sel" style="background:#222;color:#fff;border:1px solid #444;border-radius:4px;padding:5px 10px;font-size:12px;cursor:pointer"><option>Lunes</option><option>Martes</option><option>Miércoles</option><option>Jueves</option><option>Viernes</option></select><button class="tv-abtn" id="btn-slide-export">Exportar HTML</button><button class="tv-abtn" id="btn-slide-close">✕ Cerrar</button></div></div>
+    <div class="tv-fw"><div id="slide-screen" class="slide-scr"></div></div>
+  </div>
+</div>
+
+<!-- TAB CONFIGURACION -->
+<div class="tab-panel" id="tab-configuracion">
+  <div class="cfg-layout">
+    <div class="cfg-sidebar">
+      <div class="cfg-sidebar-item active" data-cfg="destinatarios"><span class="csi-icon">👥</span> Destinatarios</div>
+      <div class="cfg-sidebar-item" data-cfg="responsables"><span class="csi-icon">👤</span> Responsables</div>
+      <div class="cfg-sidebar-item" data-cfg="alumnos"><span class="csi-icon">🎓</span> Alumnos</div>
+      <div class="cfg-sidebar-item" data-cfg="tipos"><span class="csi-icon">🏷️</span> Tipos de actividad</div>
+      <div class="cfg-sidebar-item" data-cfg="roles"><span class="csi-icon">🔑</span> Roles</div>
+      <div class="cfg-sidebar-item" data-cfg="cursos"><span class="csi-icon">📚</span> Cursos y grupos</div>
+      <div class="cfg-sidebar-item" data-cfg="secciones"><span class="csi-icon">📋</span> Secciones visibles</div>
+      <div class="cfg-sidebar-item" data-cfg="requisitos"><span class="csi-icon">⚙️</span> Requisitos</div>
+    </div>
+    <div class="cfg-content">
+      <div class="cfg-section active" id="cfg-destinatarios">
+        <div class="cfg-sec-hdr"><div><div class="cfg-sec-title">Destinatarios</div><div class="cfg-sec-sub">Gestiona nombres, emails, colores y secciones visibles</div></div><button class="btn-pri" id="btn-cfg-save-rec" style="font-size:12px;padding:7px 14px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Guardar</button></div>
+        <div class="cfg-sec-body"><div id="recipients-cfg-list"></div><button class="btn-rec-add" id="btn-add-recipient"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Agregar destinatario</button></div>
+      </div>
+
+      <div class="cfg-section" id="cfg-responsables">
+        <div class="cfg-sec-hdr"><div><div class="cfg-sec-title">Responsables</div><div class="cfg-sec-sub">Lista de personas que aparecen como opciones al asignar responsables</div></div><button class="btn-pri" id="btn-cfg-save-resp" style="font-size:12px;padding:7px 14px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Guardar</button></div>
+        <div class="cfg-sec-body">
+          <div class="people-cfg-list" id="resp-cfg-list"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
+            <button class="btn-cfg-add" id="btn-add-resp-cfg"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Agregar persona</button>
+            <div class="csv-upload-area" style="flex:1;min-width:180px">
+              <label class="csv-upload-label">
+                <input type="file" id="csv-resp" accept=".csv,.txt">
+                📄 Importar CSV (una persona por línea)
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cfg-section" id="cfg-alumnos">
+        <div class="cfg-sec-hdr"><div><div class="cfg-sec-title">Alumnos</div><div class="cfg-sec-sub">Lista de alumnos para autocompletar en el formulario</div></div><button class="btn-pri" id="btn-cfg-save-alumnos" style="font-size:12px;padding:7px 14px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Guardar</button></div>
+        <div class="cfg-sec-body">
+          <div class="people-cfg-list" id="alumnos-cfg-list"></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
+            <button class="btn-cfg-add" id="btn-add-alumno-cfg"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Agregar alumno</button>
+            <div class="csv-upload-area" style="flex:1;min-width:180px">
+              <label class="csv-upload-label">
+                <input type="file" id="csv-alumnos" accept=".csv,.txt">
+                📄 Importar CSV (una persona por línea)
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cfg-section" id="cfg-tipos">
+        <div class="cfg-sec-hdr"><div><div class="cfg-sec-title">Tipos de actividad</div><div class="cfg-sec-sub">Modifica nombres y colores</div></div><button class="btn-pri" id="btn-cfg-save-tipos" style="font-size:12px;padding:7px 14px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Guardar</button></div>
+        <div class="cfg-sec-body"><div id="tipos-cfg-list"></div><button class="btn-cfg-add" id="btn-add-tipo"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Agregar tipo</button></div>
+      </div>
+
+      <div class="cfg-section" id="cfg-roles">
+        <div class="cfg-sec-hdr"><div><div class="cfg-sec-title">Roles</div><div class="cfg-sec-sub">Edita los roles del formulario</div></div><button class="btn-pri" id="btn-cfg-save-roles" style="font-size:12px;padding:7px 14px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Guardar</button></div>
+        <div class="cfg-sec-body"><div class="roles-cfg-list" id="roles-cfg-list"></div><button class="btn-cfg-add" id="btn-add-role" style="margin-top:12px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Agregar rol</button></div>
+      </div>
+
+      <div class="cfg-section" id="cfg-cursos">
+        <div class="cfg-sec-hdr"><div><div class="cfg-sec-title">Cursos y grupos</div><div class="cfg-sec-sub">Organiza los cursos por grupos</div></div><button class="btn-pri" id="btn-cfg-save-cursos" style="font-size:12px;padding:7px 14px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Guardar</button></div>
+        <div class="cfg-sec-body"><div id="cursos-cfg-list"></div><button class="btn-cfg-add" id="btn-add-group" style="margin-top:4px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Agregar grupo</button></div>
+      </div>
+
+      <div class="cfg-section" id="cfg-secciones">
+        <div class="cfg-sec-hdr"><div><div class="cfg-sec-title">Secciones visibles</div><div class="cfg-sec-sub">Renombra las secciones de las agendas</div></div><button class="btn-pri" id="btn-cfg-save-secs" style="font-size:12px;padding:7px 14px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Guardar</button></div>
+        <div class="cfg-sec-body"><div class="sections-list" id="sections-cfg-list"></div></div>
+      </div>
+
+      <div class="cfg-section" id="cfg-requisitos">
+        <div class="cfg-sec-hdr"><div><div class="cfg-sec-title">Requisitos</div><div class="cfg-sec-sub">Edita los requisitos del formulario</div></div><button class="btn-pri" id="btn-cfg-save-reqs" style="font-size:12px;padding:7px 14px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Guardar</button></div>
+        <div class="cfg-sec-body"><div class="reqs-list" id="reqs-cfg-list"></div><button class="btn-cfg-add" id="btn-add-req" style="margin-top:8px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Agregar requisito</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-hdr"><span class="modal-ttl" id="modal-title">Confirmar</span><button class="modal-close" id="modal-close-btn">×</button></div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer"><button class="btn-sec" id="modal-cancel-btn">Cancelar</button><button class="btn-pri" id="modal-confirm-btn">Confirmar</button></div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+var Q=s=>document.querySelector(s);
+var QA=s=>document.querySelectorAll(s);
+function on(sel,evt,fn){var el=Q(sel);if(el)el.addEventListener(evt,fn);}
+
+// ══ DATA ══
+var CONFIG={
+  types:[
+    {key:'assembly',label:'Assembly',color:'#D33A2E'},
+    {key:'salida',label:'Salida',color:'#B8960C'},
+    {key:'acto',label:'Acto',color:'#5B8DB8'},
+    {key:'reunion',label:'Reunión',color:'#6BAA75'},
+    {key:'coordinacion',label:'Coordinación',color:'#8A8F99'},
+    {key:'sport',label:'Sport',color:'#1a7a3c'},
+    {key:'otro',label:'Otro',color:'#9A9690'}
+  ],
+  roles:[
+    {key:'porteria',label:'🔐 Portería'},
+    {key:'inspectoria',label:'📋 Inspectoría'},
+    {key:'profesores',label:'📚 Profesores'},
+    {key:'administrativos',label:'🗂️ Administrativos'},
+    {key:'comunicacion',label:'📣 Comunicación'},
+    {key:'general',label:'📢 General'}
+  ],
+  courseGroups:[
+    {label:'Infant School',courses:['Playgroup','Pre-Kinder','Kinder']},
+    {label:'Junior School',courses:['1st Grade','2nd Grade','3rd Grade','4th Grade']},
+    {label:'Middle School',courses:['5th Grade','6th Grade','7th Grade','8th Grade']},
+    {label:'Senior School',courses:['1st Year','2nd Year','3rd Year','4th Year']}
+  ],
+  sections:[
+    {key:'descripcion',label:'Descripción'},
+    {key:'responsables',label:'Responsables'},
+    {key:'cursos',label:'Cursos / Alumnos'},
+    {key:'traslado',label:'Traslado'},
+    {key:'porteria',label:'Portería / Nómina'},
+    {key:'requisitos',label:'Requisitos'},
+    {key:'observaciones',label:'Observaciones'}
+  ],
+  requirements:[
+    {id:'req-autorizacion',emoji:'📝',label:'Autorización de apoderados'},
+    {id:'req-colacion',emoji:'🥗',label:'Colación especial'},
+    {id:'req-uniforme',emoji:'👕',label:'Cambio de uniforme'},
+    {id:'req-lista',emoji:'📋',label:'Lista de asistencia'},
+    {id:'req-audio',emoji:'🔊',label:'Sistema de audio'},
+    {id:'req-proyector',emoji:'📽️',label:'Proyector / Pantalla'},
+    {id:'req-primeros',emoji:'🩺',label:'Primeros auxilios'},
+    {id:'req-fotografia',emoji:'📸',label:'Fotografía / Video'},
+    {id:'req-deporte',emoji:'⚽',label:'Material de deporte'}
+  ]
+};
+
+// Global people lists (editable from Config)
+var RESPONSABLES_DB = [
+  'Ms. Caroline Andrews','Prof. Sebastián Morales','Prof. Andrea Soto','Sra. Patricia Veas',
+  'Sr. Eduardo Faúndez','Ms. Rachel Thomson','Sr. Diego Herrera','Ms. Pamela Cruz',
+  'Prof. Ignacio Pérez','Prof. Camila Rojas','Ms. Jennifer Clarke','Mr. David Thompson',
+  'Sra. María González','Sr. Carlos Ramírez'
+];
+var ALUMNOS_DB = [
+  'Amaia Torres','Bruno Soto','Catalina Vega','Diego Ruiz','Emilia Paz','Fernanda León',
+  'Gaspar Mora','Helena Ríos','Ignacio Cárdenas','Julia Mendez','Kevin Alvarado',
+  'Lorena Fuentes','Martín Bravo','Natalia Cerda','Oscar Díaz','Paula Espinoza',
+  'Rodrigo Farías','Sofía González','Tomás Herrera','Valentina Ibáñez','Walter Jara',
+  'Ximena Keller','Yanira Lagos','Zoe Medina','Agustín Navarro','Belén Ortega',
+  'Carlos Peña','Daniela Quiroz','Eduardo Reyes','Florencia Salazar','Guillermo Torres',
+  'Hanna Uribe','Ignacio Vargas','Javiera Wenger','Klaus Yáñez','Laura Zárate',
+  'Miguel Acevedo','Nicolás Benítez'
+];
+
+var RECIPIENTS=[
+  {id:'DG',avatar:'DG',bg:'#D33A2E',name:'Dirección General',email:'direccion@saintpeters.cl',role:'general',checked:true,sections:{descripcion:true,responsables:true,cursos:true,traslado:true,porteria:true,requisitos:true,observaciones:true}},
+  {id:'IN',avatar:'IN',bg:'#3a6489',name:'Inspectoría General',email:'inspectoria@saintpeters.cl',role:'inspectoria',checked:true,sections:{descripcion:true,responsables:true,cursos:true,traslado:true,porteria:true,requisitos:true,observaciones:false}},
+  {id:'CO',avatar:'CO',bg:'#3a7046',name:'Coordinación Académica',email:'coordinacion@saintpeters.cl',role:'administrativos',checked:true,sections:{descripcion:true,responsables:true,cursos:true,traslado:true,porteria:false,requisitos:true,observaciones:false}},
+  {id:'PO',avatar:'PO',bg:'#9a7a00',name:'Portería / Acceso',email:'porteria@saintpeters.cl',role:'porteria',checked:false,sections:{descripcion:false,responsables:true,cursos:false,traslado:false,porteria:true,requisitos:false,observaciones:false}},
+  {id:'CM',avatar:'CM',bg:'#7a3a89',name:'Comunicación',email:'comunicacion@saintpeters.cl',role:'comunicacion',checked:false,sections:{descripcion:true,responsables:true,cursos:true,traslado:false,porteria:false,requisitos:false,observaciones:false}},
+  {id:'PP',avatar:'PP',bg:'#8A8F99',name:'Profesores',email:'profesores@saintpeters.cl',role:'profesores',checked:false,sections:{descripcion:true,responsables:true,cursos:true,traslado:true,porteria:false,requisitos:true,observaciones:false}}
+];
+
+var PALETTE=['#D33A2E','#3a6489','#3a7046','#9a7a00','#7a3a89','#8A8F99','#1a7a3c','#B8960C','#5B8DB8','#6BAA75'];
+var DAYS=['Lunes','Martes','Miércoles','Jueves','Viernes'];
+var selectedCourses=new Set(), selectedAlumnosSet=new Set();
+var currentWeekOffset=0,selectedActivityId=null,enviarWeekOffset=0,currentPreviewRole=null;
+var modalCallback=null;
+
+// Autocomplete state
+var respSelected=[], colabSelected=[];
+
+var activities=[
+  {id:1,dia:'Lunes',fecha:'2026-05-18',hora:'08:00',retorno:'09:00',tipo:'assembly',titulo:'Assembly General — Inicio de Semana',lugar:'Auditorio Principal',lugarDireccion:'',locacion:'interno',responsables:['Ms. Caroline Andrews'],colaboradores:[],cursos:['1st Year','2nd Year','3rd Year','4th Year'],personas:['Todo Senior School'],desc:'Apertura semanal.',traslado:false,trasladoDet:'',trasladoSalida:'',trasladoLlegada:'',busTipo:'',busCap:'',porteria:true,porteriaNum:'120',porteriaObs:'',porteriaPersonas:[],requisitos:['req-audio','req-proyector','req-fotografia'],reqOtro:'',roles:['porteria','inspectoria','profesores','general'],obs:'Confirmar con audiovisual.',created:Date.now()},
+  {id:2,dia:'Martes',fecha:'2026-05-19',hora:'10:00',retorno:'13:30',tipo:'salida',titulo:'Salida Pedagógica — Museo Municipal',lugar:'Museo Municipal de Viña del Mar',lugarDireccion:'Av. Libertad 250, Viña del Mar',locacion:'externo',responsables:['Prof. Sebastián Morales'],colaboradores:['Prof. Andrea Soto'],cursos:['6th Grade','7th Grade'],personas:['Walter Jara','Ximena Keller','Yanira Lagos','Zoe Medina'],desc:'Visita guiada en Historia Regional.',traslado:true,trasladoDet:'Bus contratado',trasladoSalida:'09:30',trasladoLlegada:'13:30',busTipo:'Bus de un piso (Estándar)',busCap:'45',porteria:true,porteriaNum:'45',porteriaObs:'Salida en bus desde portería',porteriaPersonas:['Prof. Sebastián Morales','Prof. Andrea Soto'],requisitos:['req-autorizacion','req-lista','req-primeros'],reqOtro:'',roles:['porteria','inspectoria','profesores','administrativos'],obs:'Llevar listado firmado.',created:Date.now()},
+  {id:3,dia:'Miércoles',fecha:'2026-05-20',hora:'15:00',retorno:'17:00',tipo:'reunion',titulo:'Reunión de Apoderados — 7° Básico',lugar:'Sala de Actos',lugarDireccion:'',locacion:'interno',responsables:['Sra. Patricia Veas'],colaboradores:[],cursos:['7th Grade','8th Grade'],personas:['Apoderados de 7° y 8° Grade'],desc:'Reunión informativa semestral.',traslado:false,trasladoDet:'',trasladoSalida:'',trasladoLlegada:'',busTipo:'',busCap:'',porteria:true,porteriaNum:'60',porteriaObs:'Apoderados presentan credencial',porteriaPersonas:[],requisitos:['req-lista','req-proyector'],reqOtro:'',roles:['porteria','inspectoria','administrativos'],obs:'',created:Date.now()},
+  {id:4,dia:'Jueves',fecha:'2026-05-21',hora:'11:30',retorno:'12:30',tipo:'coordinacion',titulo:'Coordinación UTP — Planificación Semestral',lugar:'Sala de Profesores',lugarDireccion:'',locacion:'interno',responsables:['Sr. Eduardo Faúndez'],colaboradores:[],cursos:[],personas:[],desc:'Revisión de avances curriculares.',traslado:false,trasladoDet:'',trasladoSalida:'',trasladoLlegada:'',busTipo:'',busCap:'',porteria:false,porteriaNum:'',porteriaObs:'',porteriaPersonas:[],requisitos:['req-proyector'],reqOtro:'',roles:['profesores','administrativos'],obs:'Se distribuirá minuta digital.',created:Date.now()},
+  {id:5,dia:'Viernes',fecha:'2026-05-22',hora:'09:00',retorno:'11:00',tipo:'acto',titulo:'Acto Día de la Raza — Aniversario Colegio',lugar:'Patio Central',lugarDireccion:'',locacion:'interno',responsables:['Ms. Rachel Thomson'],colaboradores:['Sr. Diego Herrera','Ms. Pamela Cruz'],cursos:[],personas:['Toda la comunidad escolar'],desc:'Ceremonia oficial.',traslado:false,trasladoDet:'',trasladoSalida:'',trasladoLlegada:'',busTipo:'',busCap:'',porteria:true,porteriaNum:'500',porteriaObs:'Acceso libre con credencial',porteriaPersonas:[],requisitos:['req-audio','req-fotografia','req-uniforme'],reqOtro:'',roles:['porteria','inspectoria','profesores','administrativos','comunicacion','general'],obs:'Uniforme de gala obligatorio.',created:Date.now()},
+  {id:6,dia:'Jueves',fecha:'2026-05-21',hora:'14:00',retorno:'18:00',tipo:'sport',titulo:'Interescolar de Atletismo — Zona Centro',lugar:'Estadio Municipal de Viña del Mar',lugarDireccion:'Av. Borgoño 15000, Viña del Mar',locacion:'externo',responsables:['Prof. Ignacio Pérez'],colaboradores:['Prof. Camila Rojas'],cursos:['1st Year','2nd Year','3rd Year'],personas:['Eduardo Reyes','Florencia Salazar','Guillermo Torres'],desc:'Competencia interescolar.',traslado:true,trasladoDet:'Bus colegio',trasladoSalida:'13:00',trasladoLlegada:'18:30',busTipo:'Bus de un piso (Estándar)',busCap:'30',porteria:true,porteriaNum:'30',porteriaObs:'Salida coordinada con inspector',porteriaPersonas:['Prof. Ignacio Pérez','Prof. Camila Rojas'],requisitos:['req-autorizacion','req-lista','req-primeros','req-fotografia'],reqOtro:'',roles:['porteria','inspectoria','profesores','comunicacion'],obs:'Llevar botiquín.',created:Date.now()}
+];
+var nextId=7;
+
+// ══ HELPERS ══
+function getTypeColor(k){var t=CONFIG.types.find(x=>x.key===k);return t?t.color:'#9A9690';}
+function getTypeLabel(k){var t=CONFIG.types.find(x=>x.key===k);return t?t.label:k;}
+function getTypeBadgeClass(k){return {assembly:'tb-assembly',salida:'tb-salida',acto:'tb-acto',reunion:'tb-reunion',coordinacion:'tb-coordinacion',sport:'tb-sport'}[k]||'tb-coordinacion';}
+function initials(s){return s.split(' ').filter(Boolean).map(w=>w[0]).slice(0,2).join('').toUpperCase();}
+function getWeekStart(o){var n=new Date(),d=n.getDay(),diff=n.getDate()-d+(d===0?-6:1)+((o||0)*7);var m=new Date(n);m.setDate(diff);m.setHours(0,0,0,0);return m;}
+function getWeekNumber(d){var u=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())),dn=u.getUTCDay()||7;u.setUTCDate(u.getUTCDate()+4-dn);return Math.ceil((((u-new Date(Date.UTC(u.getUTCFullYear(),0,1)))/86400000)+1)/7);}
+function formatWeekLabel(o){var s=getWeekStart(o),e=new Date(s);e.setDate(e.getDate()+4);var M=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];if(s.getMonth()===e.getMonth())return s.getDate()+' - '+e.getDate()+' de '+M[s.getMonth()]+' '+s.getFullYear();return s.getDate()+' de '+M[s.getMonth()]+' - '+e.getDate()+' de '+M[e.getMonth()]+' '+e.getFullYear();}
+function updateWeekDisplay(){var lbl=formatWeekLabel(currentWeekOffset),s=getWeekStart(currentWeekOffset),wn=getWeekNumber(s);['#week-label','#week-label-proj'].forEach(id=>{var el=Q(id);if(el)el.textContent=lbl;});var nb=Q('#week-number-badge');if(nb)nb.textContent='Sem. '+wn;var np=Q('#week-num-proj');if(np)np.textContent='Sem. '+wn;}
+function sortedActivities(){var s=getWeekStart(currentWeekOffset),e=new Date(s);e.setDate(s.getDate()+4);e.setHours(23,59,59);return activities.filter(a=>{if(!a.fecha)return true;var p=a.fecha.split('-'),ad=new Date(+p[0],+p[1]-1,+p[2]);return ad>=s&&ad<=e;}).sort((a,b)=>{var di=DAYS.indexOf(a.dia)-DAYS.indexOf(b.dia);return di!==0?di:a.hora.localeCompare(b.hora);});}
+function renderAll(){renderChips();renderList();var el=Q('#act-count');if(el)el.textContent=sortedActivities().length;}
+function showToast(msg){var t=Q('#toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200);}
+function openModal(title,body,cb){Q('#modal-title').textContent=title;Q('#modal-body').innerHTML=body;modalCallback=cb;Q('#modal-overlay').classList.add('open');}
+function closeOverlays(){Q('#modal-overlay').classList.remove('open');Q('#tv-overlay').classList.remove('open');Q('#slide-overlay').classList.remove('open');stopTVClock();}
+function rebuildTipoSelect(){var sel=Q('#f-tipo');if(!sel)return;var cur=sel.value;sel.innerHTML='<option value="">— Tipo —</option>';CONFIG.types.forEach(t=>{var o=document.createElement('option');o.value=t.key;o.textContent=t.label;sel.appendChild(o);});sel.value=cur;}
+function rebuildReqCheckboxes(){var box=Q('#req-checkboxes');if(!box)return;box.innerHTML='';CONFIG.requirements.forEach(r=>{var lbl=document.createElement('label');lbl.className='cblbl';lbl.innerHTML='<input type="checkbox" id="'+r.id+'"> '+r.emoji+' '+r.label;box.appendChild(lbl);});var lo=document.createElement('label');lo.className='cblbl';lo.innerHTML='<input type="checkbox" id="req-otro"> ➕ Otro';box.appendChild(lo);Q('#req-otro').addEventListener('change',function(){var r=Q('#req-otro-row');if(r)r.style.display=this.checked?'block':'none';});}
+function rebuildRolesChips(){var rc=Q('#roles-chips');if(!rc)return;rc.innerHTML='';CONFIG.roles.forEach(r=>{var btn=document.createElement('button');btn.type='button';btn.className='role-chip';btn.dataset.role=r.key;btn.textContent=r.label;btn.addEventListener('click',()=>btn.classList.toggle('selected'));rc.appendChild(btn);});}
+
+// ══ AUTOCOMPLETE PEOPLE PICKER ══
+function makePeoplePicker(tagsDivId,inputId,dropdownId,db,selectedArr){
+  var tagsDiv=Q('#'+tagsDivId),inp=Q('#'+inputId),dd=Q('#'+dropdownId);
+  var focusIdx=-1;
+
+  function renderTags(){
+    tagsDiv.querySelectorAll('.ac-tag').forEach(t=>t.remove());
+    selectedArr.forEach((name,i)=>{
+      var tag=document.createElement('span');tag.className='ac-tag';
+      tag.innerHTML=name+'<button class="ac-tag-rm" data-i="'+i+'">×</button>';
+      tag.querySelector('.ac-tag-rm').addEventListener('click',e=>{e.stopPropagation();selectedArr.splice(+e.target.dataset.i,1);renderTags();});
+      tagsDiv.insertBefore(tag,inp);
+    });
+  }
+  function openDD(q){
+    var q2=(q||'').trim().toLowerCase();
+    var filtered=db.filter(n=>!selectedArr.includes(n)&&(!q2||n.toLowerCase().includes(q2))).slice(0,12);
+    dd.innerHTML='';focusIdx=-1;
+    if(!filtered.length&&!q2){dd.classList.remove('open');return;}
+    if(!filtered.length){
+      if(q2){
+        var opt=document.createElement('div');opt.className='ac-opt';opt.innerHTML='<span style="color:#5C5A55">Agregar "<strong>'+q+'</strong>"</span>';
+        opt.addEventListener('click',()=>{selectedArr.push(q.trim());renderTags();inp.value='';dd.classList.remove('open');});
+        dd.appendChild(opt);dd.classList.add('open');
+      }else dd.classList.remove('open');
+      return;
+    }
+    filtered.forEach((name,i)=>{
+      var opt=document.createElement('div');opt.className='ac-opt';opt.dataset.i=i;
+      opt.innerHTML='<div class="ac-opt-avatar">'+initials(name)+'</div><span>'+name+'</span>';
+      opt.addEventListener('click',()=>{selectedArr.push(name);renderTags();inp.value='';dd.classList.remove('open');inp.focus();});
+      dd.appendChild(opt);
+    });
+    if(q2){
+      var addOpt=document.createElement('div');addOpt.className='ac-opt';addOpt.style.borderTop='1px solid #E2E0DC';
+      addOpt.innerHTML='<span style="color:#D33A2E;font-weight:600">+ Agregar "<strong>'+q+'</strong>"</span>';
+      addOpt.addEventListener('click',()=>{selectedArr.push(q.trim());renderTags();inp.value='';dd.classList.remove('open');});
+      dd.appendChild(addOpt);
+    }
+    dd.classList.add('open');
+  }
+  inp.addEventListener('input',()=>openDD(inp.value));
+  inp.addEventListener('focus',()=>openDD(inp.value));
+  inp.addEventListener('keydown',e=>{
+    var opts=dd.querySelectorAll('.ac-opt');
+    if(e.key==='ArrowDown'){e.preventDefault();focusIdx=Math.min(focusIdx+1,opts.length-1);opts.forEach((o,i)=>o.classList.toggle('focused',i===focusIdx));}
+    else if(e.key==='ArrowUp'){e.preventDefault();focusIdx=Math.max(focusIdx-1,0);opts.forEach((o,i)=>o.classList.toggle('focused',i===focusIdx));}
+    else if(e.key==='Enter'){e.preventDefault();if(focusIdx>=0&&opts[focusIdx])opts[focusIdx].click();else if(inp.value.trim()){selectedArr.push(inp.value.trim());renderTags();inp.value='';dd.classList.remove('open');}}
+    else if(e.key==='Backspace'&&!inp.value&&selectedArr.length){selectedArr.pop();renderTags();}
+    else if(e.key==='Escape')dd.classList.remove('open');
+  });
+  tagsDiv.addEventListener('click',()=>inp.focus());
+  tagsDiv.addEventListener('focus',()=>tagsDiv.classList.add('focused'));
+  tagsDiv.addEventListener('blur',()=>tagsDiv.classList.remove('focused'));
+  document.addEventListener('click',e=>{if(!tagsDiv.closest('.ac-wrap').contains(e.target))dd.classList.remove('open');});
+  return {getValues:()=>selectedArr.slice(),setValues:(arr)=>{selectedArr.length=0;arr.forEach(v=>selectedArr.push(v));renderTags();}};
+}
+
+var respPicker, colabPicker;
+
+// ══ ALUMNO MULTI-PICKER ══
+function buildAlumnoDd(q){
+  var dd=Q('#alumno-dd'),search=Q('#alumno-search');
+  var q2=(q||'').trim().toLowerCase();
+  // pool = selected courses students first, then all ALUMNOS_DB
+  var pool=Array.from(selectedCourses).length?getAlumnosBySelectedCourses():ALUMNOS_DB;
+  var filtered=pool.filter(n=>!selectedAlumnosSet.has(n)&&(!q2||n.toLowerCase().includes(q2))).slice(0,15);
+  dd.innerHTML='';
+  if(!filtered.length&&!q2){dd.classList.remove('open');return;}
+  if(!filtered.length){
+    if(q2){
+      var o=document.createElement('div');o.className='alumno-dd-opt';
+      o.innerHTML='<span style="color:#5C5A55">Agregar "<strong>'+q+'</strong>"</span>';
+      o.addEventListener('click',()=>{selectedAlumnosSet.add(q.trim());renderAlumnoTags();search.value='';dd.classList.remove('open');});
+      dd.appendChild(o);dd.classList.add('open');
+    }else dd.classList.remove('open');
+    return;
+  }
+  filtered.forEach(name=>{
+    var o=document.createElement('div');o.className='alumno-dd-opt';
+    o.innerHTML='<input type="checkbox"><span>'+name+'</span>';
+    o.addEventListener('click',e=>{e.preventDefault();selectedAlumnosSet.add(name);renderAlumnoTags();search.value='';dd.classList.remove('open');search.focus();});
+    dd.appendChild(o);
+  });
+  if(q2){
+    var ao=document.createElement('div');ao.className='alumno-dd-opt';ao.style.borderTop='1px solid #E2E0DC';
+    ao.innerHTML='<span style="color:#D33A2E;font-weight:600">+ Agregar "'+q+'"</span>';
+    ao.addEventListener('click',()=>{selectedAlumnosSet.add(q.trim());renderAlumnoTags();search.value='';dd.classList.remove('open');});
+    dd.appendChild(ao);
+  }
+  dd.classList.add('open');
+}
+function renderAlumnoTags(){
+  var c=Q('#alumno-tags');c.innerHTML='';
+  selectedAlumnosSet.forEach(name=>{
+    var t=document.createElement('span');t.className='alumno-tag';
+    t.innerHTML=name+'<button class="alumno-tag-rm">×</button>';
+    t.querySelector('.alumno-tag-rm').addEventListener('click',()=>{selectedAlumnosSet.delete(name);renderAlumnoTags();});
+    c.appendChild(t);
+  });
+  var cnt=Q('#alumno-count');if(cnt)cnt.textContent=selectedAlumnosSet.size?selectedAlumnosSet.size+' seleccionados':'';
+}
+function getAlumnosBySelectedCourses(){
+  var pool=[];
+  selectedCourses.forEach(c=>{
+    var found=ALUMNOS_DB.filter(n=>!pool.includes(n)); // show all since no per-course mapping now
+    // We still show all ALUMNOS_DB when courses selected for simplicity
+  });
+  return ALUMNOS_DB;
+}
+on('#alumno-search','input',function(){buildAlumnoDd(this.value);});
+on('#alumno-search','focus',function(){buildAlumnoDd(this.value);});
+document.addEventListener('click',e=>{var dd=Q('#alumno-dd'),sw=Q('.alumno-search-wrap');if(sw&&!sw.contains(e.target))dd&&dd.classList.remove('open');});
+on('#btn-al-all','click',()=>{ALUMNOS_DB.forEach(n=>selectedAlumnosSet.add(n));renderAlumnoTags();});
+on('#btn-al-none','click',()=>{selectedAlumnosSet.clear();renderAlumnoTags();});
+
+// ══ COURSE SELECTOR ══
+function buildCourseDropdown(){var dd=Q('#course-dropdown');if(!dd)return;dd.innerHTML='';CONFIG.courseGroups.forEach(g=>{var hdr=document.createElement('div');hdr.className='cghdr';hdr.innerHTML='<span>'+g.label+'</span><button class="cgsa">Todos</button>';hdr.querySelector('.cgsa').addEventListener('click',e=>{e.stopPropagation();toggleGroupAll(g.label);});dd.appendChild(hdr);g.courses.forEach(c=>{var opt=document.createElement('div');opt.className='copt'+(selectedCourses.has(c)?' selected':'');opt.innerHTML='<input type="checkbox"'+(selectedCourses.has(c)?' checked':'')+'><span>'+c+'</span>';opt.addEventListener('click',e=>{e.stopPropagation();toggleCourse(c);});dd.appendChild(opt);});});}
+function toggleCourseDropdown(){var dd=Q('#course-dropdown'),tr=Q('#course-trigger');if(dd.classList.contains('open')){dd.classList.remove('open');tr.classList.remove('open');}else{buildCourseDropdown();dd.classList.add('open');tr.classList.add('open');}}
+function closeCourseDropdown(){var dd=Q('#course-dropdown'),tr=Q('#course-trigger');if(dd)dd.classList.remove('open');if(tr)tr.classList.remove('open');}
+function toggleCourse(c){selectedCourses.has(c)?selectedCourses.delete(c):selectedCourses.add(c);buildCourseDropdown();renderCourseChips();}
+function toggleGroupAll(lbl){var g=CONFIG.courseGroups.find(x=>x.label===lbl);if(!g)return;var all=g.courses.every(c=>selectedCourses.has(c));g.courses.forEach(c=>all?selectedCourses.delete(c):selectedCourses.add(c));buildCourseDropdown();renderCourseChips();}
+function removeCourse(c){selectedCourses.delete(c);buildCourseDropdown();renderCourseChips();}
+function removeGroup(lbl){var g=CONFIG.courseGroups.find(x=>x.label===lbl);if(g)g.courses.forEach(c=>selectedCourses.delete(c));buildCourseDropdown();renderCourseChips();}
+function renderCourseChips(){var area=Q('#course-chips-area'),lbl=Q('#course-trigger-label');area.innerHTML='';if(!selectedCourses.size){lbl.textContent='— Seleccionar cursos —';lbl.style.color='#9A9690';return;}var shown=new Set();CONFIG.courseGroups.forEach(g=>{if(g.courses.every(c=>selectedCourses.has(c))){var sp=document.createElement('span');sp.className='cgchip';sp.innerHTML=g.label+'<button class="cchiprm">×</button>';sp.querySelector('.cchiprm').addEventListener('click',()=>removeGroup(g.label));area.appendChild(sp);g.courses.forEach(c=>shown.add(c));}});selectedCourses.forEach(c=>{if(!shown.has(c)){var sp=document.createElement('span');sp.className='cchip';sp.innerHTML=c+'<button class="cchiprm">×</button>';sp.querySelector('.cchiprm').addEventListener('click',()=>removeCourse(c));area.appendChild(sp);}});lbl.textContent=selectedCourses.size+' curso'+(selectedCourses.size!==1?'s':'')+' seleccionado'+(selectedCourses.size!==1?'s':'');lbl.style.color='#1A1A1A';}
+on('#course-trigger','click',e=>{e.stopPropagation();toggleCourseDropdown();});
+document.addEventListener('click',e=>{var sel=Q('#course-selector');if(sel&&!sel.contains(e.target))closeCourseDropdown();});
+
+// ══ PORTERIA ══
+function addPorteriaPersona(name){var list=Q('#porteria-list');if(!list)return;var num=list.children.length+1;var row=document.createElement('div');row.className='portrow';row.innerHTML='<span class="portnum">'+num+'.</span><input type="text" placeholder="Nombre completo" style="flex:1"'+(name?' value="'+name+'"':'')+'><button type="button" class="prm" style="background:none;border:1px solid #E2E0DC;border-radius:4px;color:#9A9690;cursor:pointer;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;">×</button>';row.querySelector('button').addEventListener('click',()=>{row.remove();renumberPorteria();updatePorteriaCounter();});list.appendChild(row);updatePorteriaCounter();}
+function renumberPorteria(){Array.from(Q('#porteria-list').children).forEach((r,i)=>{var sp=r.querySelector('.portnum');if(sp)sp.textContent=(i+1)+'.';});}
+function updatePorteriaCounter(){var list=Q('#porteria-list'),empty=Q('#porteria-empty'),counter=Q('#porteria-counter');if(!list)return;var c=list.children.length;if(counter)counter.textContent='('+c+')';if(empty)empty.style.display=c===0?'block':'none';}
+function getPorteriaPersonas(){return Array.from(Q('#porteria-list').querySelectorAll('input')).map(i=>i.value.trim()).filter(Boolean);}
+function setPorteriaPersonas(arr){Q('#porteria-list').innerHTML='';(arr||[]).forEach(n=>addPorteriaPersona(n));updatePorteriaCounter();}
+function togglePorteria(val){Q('#porteria-detail').style.display=val?'block':'none';if(!val){Q('#porteria-list').innerHTML='';Q('#f-porteria-num').value='';Q('#f-porteria-obs').value='';updatePorteriaCounter();}}
+function toggleTraslado(val){Q('#traslado-times').style.display=val?'grid':'none';}
+function setLocacion(val){Q('#f-locacion').value=val;var ib=Q('#loc-interno-btn'),eb=Q('#loc-externo-btn'),ext=Q('#f-lugar-ext-row');if(val==='interno'){ib.style.background='#D33A2E';ib.style.color='#fff';eb.style.background='#fff';eb.style.color='#5C5A55';ext.style.display='none';}else{eb.style.background='#D33A2E';eb.style.color='#fff';ib.style.background='#fff';ib.style.color='#5C5A55';ext.style.display='block';}}
+
+function onDiaFechaChange(val){if(!val){Q('#f-dia').value='';Q('#f-dia-label').textContent='';return;}var p=val.split('-'),y=+p[0],m=+p[1],d=+p[2],date=new Date(y,m-1,d);var dn=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];var mn=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];Q('#f-dia').value=dn[date.getDay()];var lbl=Q('#f-dia-label');if(date.getDay()===0||date.getDay()===6){lbl.textContent='⚠️ '+dn[date.getDay()]+' — fin de semana';lbl.style.color='#B8960C';}else{lbl.textContent='📅 '+dn[date.getDay()]+' '+d+' de '+mn[m-1]+' '+y;lbl.style.color='#D33A2E';}var selDate=new Date(y,m-1,d),curStart=getWeekStart(currentWeekOffset),curEnd=new Date(curStart);curEnd.setDate(curStart.getDate()+6);if(selDate<curStart||selDate>curEnd){currentWeekOffset=Math.round((selDate-getWeekStart(0))/(7*86400000));updateWeekDisplay();renderAll();}}
+
+// ══ ACTIVITY CRUD ══
+function renderChips(){var el=Q('#chips-list');if(!el)return;el.innerHTML='';var s=sortedActivities();if(!s.length){el.innerHTML='<span style="font-size:12px;color:#9A9690;font-style:italic">Sin actividades esta semana</span>';return;}s.forEach(a=>{var d=document.createElement('div');d.className='activity-chip'+(selectedActivityId===a.id?' selected':'');d.innerHTML='<div class="cdot" style="background:'+getTypeColor(a.tipo)+'"></div>'+a.dia.substring(0,3)+' · '+a.titulo.substring(0,22)+(a.titulo.length>22?'…':'');d.addEventListener('click',()=>selectActivity(a.id));el.appendChild(d);});}
+
+function renderList(){var ul=Q('#activity-list');if(!ul)return;ul.innerHTML='';var s=sortedActivities();if(!s.length){ul.innerHTML='<div style="display:flex;flex-direction:column;align-items:center;padding:40px 20px;color:#9A9690;text-align:center;gap:8px"><div style="font-size:32px;opacity:.4">📋</div><div>Sin actividades esta semana</div></div>';return;}s.forEach(a=>{var resp=(a.responsables&&a.responsables.length)?a.responsables[0].split(' ').slice(-1)[0]:'—';var curTxt=(a.cursos&&a.cursos.length)?(a.cursos.length>2?a.cursos.slice(0,2).join(', ')+'…':a.cursos.join(', ')):'';var li=document.createElement('li');li.className='act-item'+(selectedActivityId===a.id?' active':'');li.innerHTML='<div style="width:4px;flex-shrink:0;background:'+getTypeColor(a.tipo)+'"></div><div class="aib"><div class="ai-day">'+a.dia+(a.fecha?' · '+a.fecha:'')+'</div><div class="ai-title">'+a.titulo+'</div><div class="ai-meta"><span>'+(a.locacion==='externo'?'🌍':'🏫')+' '+a.lugar+'</span><span>👤 '+resp+'</span>'+(curTxt?'<span>📚 '+curTxt+'</span>':'')+(a.traslado?'<span>🚌</span>':'')+'</div></div><div class="ait"><span>'+a.hora+'</span><span class="tbadge '+getTypeBadgeClass(a.tipo)+'">'+getTypeLabel(a.tipo)+'</span><button class="del-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg></button></div>';li.querySelector('.aib').addEventListener('click',()=>selectActivity(a.id));li.querySelector('.del-btn').addEventListener('click',e=>{e.stopPropagation();quickDeleteActivity(a.id);});ul.appendChild(li);});}
+
+function selectActivity(id){selectedActivityId=id;var a=activities.find(x=>x.id===id);if(!a)return;Q('#f-dia').value=a.dia;Q('#f-dia-fecha').value=a.fecha||'';var lbl=Q('#f-dia-label');lbl.textContent=a.dia?'📅 '+a.dia:'';lbl.style.color='#D33A2E';Q('#f-hora').value=a.hora;Q('#f-retorno').value=a.retorno||'';Q('#f-tipo').value=a.tipo;Q('#f-titulo').value=a.titulo;setLocacion(a.locacion||'interno');Q('#f-lugar').value=a.lugar;Q('#f-lugar-dir').value=a.lugarDireccion||'';Q('#f-desc').value=a.desc||'';respPicker.setValues(a.responsables||[]);colabPicker.setValues(a.colaboradores||[]);selectedCourses=new Set(Array.isArray(a.cursos)?a.cursos:[]);renderCourseChips();selectedAlumnosSet=new Set(Array.isArray(a.personas)?a.personas:[]);renderAlumnoTags();Q('#f-obs').value=a.obs||'';Q('#porteria-si').checked=a.porteria;Q('#porteria-no').checked=!a.porteria;togglePorteria(a.porteria);if(a.porteria){Q('#f-porteria-num').value=a.porteriaNum||'';Q('#f-porteria-obs').value=a.porteriaObs||'';setPorteriaPersonas(a.porteriaPersonas||[]);}Q('#traslado-si').checked=a.traslado;Q('#traslado-no').checked=!a.traslado;Q('#f-traslado-det').value=a.trasladoDet||'';Q('#f-traslado-salida').value=a.trasladoSalida||'';Q('#f-traslado-llegada').value=a.trasladoLlegada||'';Q('#f-bus-tipo').value=a.busTipo||'';Q('#f-bus-cap').value=a.busCap||'';toggleTraslado(a.traslado);CONFIG.requirements.forEach(r=>{var el=Q('#'+r.id);if(el)el.checked=a.requisitos?(a.requisitos.indexOf(r.id)>=0):false;});var ro=Q('#req-otro');if(ro){ro.checked=!!(a.reqOtro);var row=Q('#req-otro-row');if(row)row.style.display=a.reqOtro?'block':'none';}var rt=Q('#req-otro-texto');if(rt)rt.value=a.reqOtro||'';QA('.role-chip').forEach(c=>c.classList.toggle('selected',a.roles?(a.roles.indexOf(c.dataset.role)>=0):false));Q('#form-panel-title').textContent=a.titulo;Q('#form-panel-sub').textContent=a.dia+' · '+a.hora+' · '+a.lugar;Q('#btn-delete').style.display='block';renderChips();renderList();Q('.form-panel').scrollIntoView({behavior:'smooth',block:'start'});}
+
+function clearForm(){['f-dia-fecha','f-hora','f-retorno','f-tipo','f-titulo','f-lugar','f-lugar-dir','f-desc','f-traslado-det','f-traslado-salida','f-traslado-llegada','f-bus-tipo','f-bus-cap','f-obs','f-porteria-num','f-porteria-obs'].forEach(id=>{var el=Q('#'+id);if(el)el.value='';});Q('#f-hora').value='08:30';Q('#f-dia').value='';Q('#f-dia-label').textContent='';Q('#porteria-no').checked=true;togglePorteria(false);Q('#traslado-no').checked=true;toggleTraslado(false);CONFIG.requirements.forEach(r=>{var el=Q('#'+r.id);if(el)el.checked=false;});var ro=Q('#req-otro');if(ro)ro.checked=false;var row=Q('#req-otro-row');if(row)row.style.display='none';QA('.role-chip').forEach(c=>c.classList.remove('selected'));selectedCourses=new Set();renderCourseChips();selectedAlumnosSet=new Set();renderAlumnoTags();if(respPicker)respPicker.setValues([]);if(colabPicker)colabPicker.setValues([]);Q('#porteria-list').innerHTML='';updatePorteriaCounter();setLocacion('interno');}
+
+function saveActivity(){var titulo=Q('#f-titulo').value.trim(),dia=Q('#f-dia').value,hora=Q('#f-hora').value,lugar=Q('#f-lugar').value.trim(),tipo=Q('#f-tipo').value,responsables=respPicker?respPicker.getValues():[];if(!titulo||!dia||!hora||!lugar||!tipo||!responsables.length){showToast('⚠️ Complete los campos obligatorios (*)');return;}var roles=Array.from(QA('.role-chip.selected')).map(c=>c.dataset.role);var requisitos=CONFIG.requirements.map(r=>r.id).filter(id=>{var el=Q('#'+id);return el&&el.checked;});var traslado=Q('#traslado-si').checked,porteria=Q('#porteria-si').checked;var reqOtroEl=Q('#req-otro'),reqOtroTxt=Q('#req-otro-texto');var reqOtro=(reqOtroEl&&reqOtroEl.checked&&reqOtroTxt)?reqOtroTxt.value.trim():'';var data={dia:dia,fecha:Q('#f-dia-fecha').value,hora:hora,tipo:tipo,titulo:titulo,lugar:lugar,lugarDireccion:Q('#f-lugar-dir').value.trim(),locacion:Q('#f-locacion').value,retorno:Q('#f-retorno').value,desc:Q('#f-desc').value,responsables:responsables,colaboradores:colabPicker?colabPicker.getValues():[],cursos:Array.from(selectedCourses),personas:Array.from(selectedAlumnosSet),traslado:traslado,trasladoDet:Q('#f-traslado-det').value,trasladoSalida:traslado?Q('#f-traslado-salida').value:'',trasladoLlegada:traslado?Q('#f-traslado-llegada').value:'',busTipo:traslado?Q('#f-bus-tipo').value:'',busCap:traslado?Q('#f-bus-cap').value:'',porteria:porteria,porteriaNum:porteria?Q('#f-porteria-num').value:'',porteriaObs:porteria?Q('#f-porteria-obs').value:'',porteriaPersonas:porteria?getPorteriaPersonas():[],requisitos:requisitos,reqOtro:reqOtro,roles:roles,obs:Q('#f-obs').value};if(selectedActivityId){var idx=activities.findIndex(a=>a.id===selectedActivityId);if(idx>-1)activities[idx]=Object.assign({},activities[idx],data);showToast('✅ Actividad actualizada');}else{data.id=nextId++;data.created=Date.now();activities.push(data);selectedActivityId=data.id;Q('#btn-delete').style.display='block';showToast('✅ Actividad registrada');}renderAll();}
+
+function quickDeleteActivity(id){var a=activities.find(x=>x.id===id);if(!a)return;openModal('Eliminar actividad','¿Eliminar "<strong>'+a.titulo+'</strong>"?',()=>{activities=activities.filter(x=>x.id!==id);if(selectedActivityId===id){selectedActivityId=null;clearForm();Q('#btn-delete').style.display='none';Q('#form-panel-title').textContent='Nueva actividad';Q('#form-panel-sub').textContent='Complete los campos requeridos';}renderAll();showToast('🗑️ Actividad eliminada');});}
+
+// ══ SAVE FILE ══
+function saveToFile(){var data={activities:activities,nextId:nextId,recipients:RECIPIENTS,config:CONFIG,responsablesDB:RESPONSABLES_DB,alumnosDB:ALUMNOS_DB,exportedAt:new Date().toISOString()};var b64=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));var a=document.createElement('a');a.href='data:application/json;base64,'+b64;a.download='SPS_Agenda_'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();document.body.removeChild(a);}
+function exportHTML(html,fn){var b64=btoa(unescape(encodeURIComponent(html)));var a=document.createElement('a');a.href='data:text/html;charset=utf-8;base64,'+b64;a.download=fn;document.body.appendChild(a);a.click();document.body.removeChild(a);}
+
+// ══ POR ROL ══
+function renderRolTab(){var grid=Q('#rol-grid');if(!grid)return;var sorted=sortedActivities();grid.innerHTML=CONFIG.roles.map(r=>{var rel=sorted.filter(a=>a.roles&&a.roles.indexOf(r.key)>=0);return'<div class="rol-card"><div class="rol-card-hdr"><div style="font-size:20px">'+r.label.split(' ')[0]+'</div><div><div class="rol-ttl">'+r.label.replace(/^[^\s]+\s/,'')+'</div><div class="rol-cnt">'+rel.length+' actividad'+(rel.length!==1?'es':'')+'</div></div></div><div class="rol-acts">'+(!rel.length?'<div style="color:#9A9690;font-size:12px;padding:8px 0">Sin actividades</div>':rel.map(a=>'<div class="rol-ai"><span class="rol-day">'+a.dia.substring(0,3)+'</span><span>'+a.hora+' — '+a.titulo+'</span></div>').join(''))+'</div></div>';}).join('');}
+
+// ══ PROJECTION ══
+function renderProjection(){var grid=Q('#projection-grid');if(!grid)return;grid.innerHTML='';var wStart=getWeekStart(currentWeekOffset),todayStr=new Date().toDateString();for(var i=0;i<5;i++){var day=DAYS[i],d=new Date(wStart);d.setDate(wStart.getDate()+i);var isToday=d.toDateString()===todayStr;var dayActs=activities.filter(a=>a.dia===day).sort((a,b)=>a.hora.localeCompare(b.hora));var body='';if(!dayActs.length)body='<div class="day-empty">Sin actividades</div>';else dayActs.forEach(a=>{var bc=getTypeColor(a.tipo),tl=getTypeLabel(a.tipo);var resp=(a.responsables&&a.responsables.length)?a.responsables[0]:'—';var curArr=Array.isArray(a.cursos)?a.cursos:[];var loc=(a.locacion==='externo'?'🌍 ':'🏫 ')+a.lugar;var tras=a.traslado?'<div class="pjtr">🚌 '+(a.trasladoDet||'')+'</div>':'';body+='<div class="pjcard" style="border-left-color:'+bc+'"><div class="pjtype" style="color:'+bc+'">'+tl+'</div><div class="pjtitle">'+a.titulo+'</div><div class="pjrow">🕐 <strong>'+a.hora+'</strong>'+(a.retorno?' 🕓 '+a.retorno:'')+'</div><div class="pjrow">'+loc+'</div>'+(curArr.length?'<div class="pjrow">📚 '+curArr.join(', ')+'</div>':'')+'<div class="pjrow">👤 '+resp+'</div>'+tras+'</div>';});var col=document.createElement('div');col.className='day-col'+(isToday?' today':'');col.innerHTML='<div class="day-hdr-c"><div class="day-name">'+day+'</div><div class="day-date">'+d.getDate()+'</div></div><div class="day-body">'+body+'</div>';grid.appendChild(col);}}
+
+// ══ ENVIAR ══
+var RFILT={general:()=>true,inspectoria:a=>['salida','acto','sport','reunion','assembly'].indexOf(a.tipo)>=0||a.traslado||a.porteria,administrativos:a=>['salida','acto','sport','reunion','assembly','coordinacion'].indexOf(a.tipo)>=0,porteria:a=>a.porteria||(a.roles&&a.roles.indexOf('porteria')>=0)||a.traslado,comunicacion:a=>(a.roles&&a.roles.indexOf('comunicacion')>=0)||(a.requisitos&&(a.requisitos.indexOf('req-fotografia')>=0||a.requisitos.indexOf('req-audio')>=0)),profesores:a=>(a.cursos&&a.cursos.length>0)||(a.roles&&a.roles.indexOf('profesores')>=0)};
+function getEnviarActivities(){var s=getWeekStart(enviarWeekOffset),e=new Date(s);e.setDate(s.getDate()+4);e.setHours(23,59,59);return activities.filter(a=>{if(!a.fecha)return true;var p=a.fecha.split('-'),ad=new Date(+p[0],+p[1]-1,+p[2]);return ad>=s&&ad<=e;}).sort((a,b)=>{var di=DAYS.indexOf(a.dia)-DAYS.indexOf(b.dia);return di!==0?di:a.hora.localeCompare(b.hora);});}
+function updateEnviarWeekDisplay(){var lbl=formatWeekLabel(enviarWeekOffset),s=getWeekStart(enviarWeekOffset),wn=getWeekNumber(s);var el=Q('#enviar-week-label');if(el)el.textContent=lbl;var bn=Q('#enviar-week-badge');if(bn)bn.textContent='Sem. '+wn;var sc=Q('#send-count');if(sc)sc.textContent=getEnviarActivities().length;if(currentPreviewRole!==null)showRecipientPreview(currentPreviewRole);else renderEmailPreview();}
+function getReqLabel(id){var r=CONFIG.requirements.find(x=>x.id===id);return r?r.label:id;}
+function personasStr(arr){if(!arr)return'';if(Array.isArray(arr))return arr.join(', ');return arr;}
+
+function buildEmailHTML(acts,r,wl,wn){
+  var sec=r.sections||{};var filter=RFILT[r.role]||RFILT.general;var filtered=acts.filter(filter);var rc=r.bg||'#D33A2E';
+  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#f5f5f5;font-family:Arial,sans-serif"><div style="max-width:620px;margin:0 auto;background:#fff">';
+  html+='<div style="background:'+rc+';border-bottom:4px solid #B8960C;padding:20px 28px"><div style="font-family:Georgia,serif;font-size:22px;font-weight:700;color:#fff">Saint Peter\'s School</div><div style="font-size:10px;color:rgba(255,255,255,.7);letter-spacing:.1em;text-transform:uppercase;margin-top:3px">Colegio Británico · Viña del Mar · Desde 1918</div><div style="margin-top:12px;display:flex;justify-content:space-between;align-items:flex-end"><div style="font-size:13px;font-weight:700;color:#fff">Agenda Semanal — Semana '+wn+'</div><div style="font-size:12px;font-style:italic;color:rgba(255,255,255,.85)">'+wl+'</div></div></div>';
+  html+='<div style="background:'+rc+'22;border-left:4px solid '+rc+';padding:10px 20px;font-size:12px;color:'+rc+';font-weight:700">Para: '+r.name+'</div>';
+  html+='<div style="padding:20px 28px">';
+  if(!filtered.length){html+='<p style="color:#999;text-align:center;padding:30px 0">Sin actividades relevantes para esta semana.</p>';}
+  else{
+    var byDay={};DAYS.forEach(d=>{var da=filtered.filter(a=>a.dia===d);if(da.length)byDay[d]=da;});
+    Object.keys(byDay).forEach(day=>{
+      html+='<div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:'+rc+';border-bottom:2px solid '+rc+'33;padding-bottom:4px;margin:20px 0 10px">'+day+'</div>';
+      byDay[day].forEach(a=>{
+        var bc=getTypeColor(a.tipo),tl=getTypeLabel(a.tipo);
+        var cursos=Array.isArray(a.cursos)?a.cursos.join(', '):'';
+        var reqs=(a.requisitos||[]).map(getReqLabel).filter(Boolean);if(a.reqOtro)reqs.push(a.reqOtro);
+        var pStr=personasStr(a.personas);
+        html+='<div style="border-left:4px solid '+bc+';padding:12px 14px;margin-bottom:10px;background:#fafafa;border-radius:0 4px 4px 0">';
+        html+='<div style="font-size:9px;font-weight:700;color:'+bc+';text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">'+tl+'</div>';
+        html+='<div style="font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:8px">'+a.titulo+'</div>';
+        html+='<table style="width:100%;border-collapse:collapse;font-size:12px;color:#444">';
+        html+='<tr><td style="padding:2px 0;width:110px;color:#888;font-weight:600">📅 Fecha / Hora</td><td>'+(a.fecha||a.dia)+(a.hora?' · <strong>'+a.hora+'</strong>':'')+(a.retorno?' — '+a.retorno:'')+'</td></tr>';
+        html+='<tr><td style="padding:2px 0;color:#888;font-weight:600">📍 Lugar</td><td>'+(a.locacion==='externo'?'🌍 ':'🏫 ')+a.lugar+(a.locacion==='externo'&&a.lugarDireccion?' — '+a.lugarDireccion:'')+'</td></tr>';
+        if(sec.descripcion&&a.desc)html+='<tr><td style="padding:2px 0;color:#888;font-weight:600">📝 Descripción</td><td>'+a.desc+'</td></tr>';
+        if(sec.responsables&&a.responsables&&a.responsables.length)html+='<tr><td style="padding:2px 0;color:#888;font-weight:600">👤 Responsables</td><td>'+a.responsables.join(', ')+(a.colaboradores&&a.colaboradores.length?' · <em>'+a.colaboradores.join(', ')+'</em>':'')+'</td></tr>';
+        if(sec.cursos&&pStr)html+='<tr><td style="padding:2px 0;color:#888;font-weight:600">👥 Asistentes</td><td>'+pStr+'</td></tr>';
+        if(sec.cursos&&cursos)html+='<tr><td style="padding:2px 0;color:#888;font-weight:600">📚 Cursos</td><td>'+cursos+'</td></tr>';
+        if(sec.traslado&&a.traslado)html+='<tr><td style="padding:2px 0;color:#888;font-weight:600">🚌 Traslado</td><td>'+(a.trasladoDet||'Traslado')+(a.busTipo?' · '+a.busTipo:'')+(a.busCap?' ('+a.busCap+' pax)':'')+(a.trasladoSalida?' · Sal: '+a.trasladoSalida:'')+(a.trasladoLlegada?' → '+a.trasladoLlegada:'')+'</td></tr>';
+        if(sec.porteria&&a.porteria)html+='<tr><td style="padding:2px 0;color:#888;font-weight:600">🔐 Portería</td><td>Acceso autorizado'+(a.porteriaNum?' · '+a.porteriaNum+' personas':'')+(a.porteriaObs?' · '+a.porteriaObs:'')+'</td></tr>';
+        if(sec.requisitos&&reqs.length)html+='<tr><td style="padding:2px 0;color:#888;font-weight:600">⚙️ Requisitos</td><td>'+reqs.join(' · ')+'</td></tr>';
+        if(sec.observaciones&&a.obs)html+='<tr><td style="padding:2px 0;color:#888;font-weight:600">💬 Obs.</td><td>'+a.obs+'</td></tr>';
+        html+='</table></div>';
+      });
+    });
+  }
+  html+='</div><div style="background:#f5f5f5;border-top:1px solid #e0e0e0;padding:14px 28px;font-size:10px;color:#aaa;text-align:center">Saint Peter\'s School · Agenda Semana '+wn+' · info@stpeters.cl</div></div></body></html>';
+  return html;
+}
+
+function buildAgendaHTML(acts,recipientIdx){var r=RECIPIENTS[recipientIdx]||null;var sec=r?r.sections:{descripcion:true,responsables:true,cursos:true,traslado:true,porteria:true,requisitos:true,observaciones:true};var roleKey=r?r.role:'general';var filter=RFILT[roleKey]||RFILT.general;var filtered=acts.filter(filter);var wl=formatWeekLabel(enviarWeekOffset);var rc=r?r.bg:'#D33A2E';var h='<div style="margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid '+rc+'"><div style="font-size:15px;font-weight:700;font-family:serif">Saint Peter\'s School — Agenda Semanal</div><div style="font-size:12px;color:#5C5A55;margin-top:2px">Semana del '+wl+'</div>';if(r)h+='<div style="margin-top:6px;font-size:11px;font-weight:700;color:'+rc+'">Para: '+r.name+'</div>';h+='</div>';if(!filtered.length){h+='<div style="color:#9A9690;font-size:13px;padding:16px 0;text-align:center">Sin actividades relevantes.</div>';}else{var byDay={};DAYS.forEach(d=>{var da=filtered.filter(a=>a.dia===d);if(da.length)byDay[d]=da;});Object.keys(byDay).forEach(day=>{h+='<div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:'+rc+';margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid #f5e8e7">'+day+'</div>';byDay[day].forEach(a=>{var bc=getTypeColor(a.tipo),tl=getTypeLabel(a.tipo);var cursos=Array.isArray(a.cursos)?a.cursos.join(', '):'';var reqs=(a.requisitos||[]).map(getReqLabel).filter(Boolean);if(a.reqOtro)reqs.push(a.reqOtro);var pStr=personasStr(a.personas);h+='<div style="margin-bottom:10px;padding:10px 12px;background:#fff;border:1px solid #E2E0DC;border-radius:4px;border-left:3px solid '+bc+'"><div style="font-size:10px;font-weight:700;color:'+bc+';margin-bottom:4px">'+tl+'</div><div style="font-weight:700;font-size:13px;margin-bottom:6px">'+a.titulo+'</div><table style="width:100%;border-collapse:collapse;font-size:12px"><tr><td style="padding:2px 10px 2px 0;color:#9A9690;width:90px">📅 Fecha</td><td>'+(a.fecha||a.dia)+'</td></tr><tr><td style="padding:2px 10px 2px 0;color:#9A9690">🕐 Inicio</td><td><strong>'+a.hora+'</strong></td></tr>'+(a.retorno?'<tr><td style="padding:2px 10px 2px 0;color:#9A9690">🕓 Término</td><td>'+a.retorno+'</td></tr>':'')+'<tr><td style="padding:2px 10px 2px 0;color:#9A9690">📍 Lugar</td><td>'+(a.locacion==='externo'?'🌍 ':'🏫 ')+a.lugar+(a.locacion==='externo'&&a.lugarDireccion?' — '+a.lugarDireccion:'')+'</td></tr>'+(sec.descripcion&&a.desc?'<tr><td style="padding:2px 10px 2px 0;color:#9A9690">📝 Desc.</td><td>'+a.desc+'</td></tr>':'')+(sec.responsables&&a.responsables&&a.responsables.length?'<tr><td style="padding:2px 10px 2px 0;color:#9A9690">👤 Resp.</td><td>'+a.responsables.join(', ')+'</td></tr>':'')+(sec.cursos&&pStr?'<tr><td style="padding:2px 10px 2px 0;color:#9A9690">👥 Asist.</td><td>'+pStr+'</td></tr>':'')+(sec.cursos&&cursos?'<tr><td style="padding:2px 10px 2px 0;color:#9A9690">📚 Cursos</td><td>'+cursos+'</td></tr>':'')+(sec.traslado&&a.traslado?'<tr><td style="padding:2px 10px 2px 0;color:#9A9690">🚌 Traslado</td><td>'+(a.trasladoDet||'Traslado')+(a.busTipo?' · '+a.busTipo:'')+(a.trasladoSalida?' Sal:'+a.trasladoSalida:'')+(a.trasladoLlegada?' Ll:'+a.trasladoLlegada:'')+'</td></tr>':'')+(sec.porteria&&a.porteria?'<tr><td style="padding:2px 10px 2px 0;color:#9A9690">🔐 Portería</td><td>Acceso autorizado'+(a.porteriaNum?' · '+a.porteriaNum+' pers.':'')+'</td></tr>':'')+(sec.requisitos&&reqs.length?'<tr><td style="padding:2px 10px 2px 0;color:#9A9690">⚙️ Req.</td><td>'+reqs.join(' · ')+'</td></tr>':'')+(sec.observaciones&&a.obs?'<tr><td style="padding:2px 10px 2px 0;color:#9A9690">💬 Obs.</td><td>'+a.obs+'</td></tr>':'')+'</table></div>';});});}h+='<div style="margin-top:14px;font-size:11px;color:#9A9690;font-style:italic">— Equipo de Coordinación · Saint Peter\'s School</div>';return h;}
+
+function renderEmailPreview(){currentPreviewRole=null;var el=Q('#email-preview');if(el)el.innerHTML=buildAgendaHTML(getEnviarActivities(),0);var lbl=Q('#preview-recip-label');if(lbl)lbl.textContent='Vista previa — Dirección General';QA('.prpb').forEach(b=>b.classList.remove('active'));}
+function showRecipientPreview(idx){currentPreviewRole=idx;var el=Q('#email-preview');if(el)el.innerHTML=buildAgendaHTML(getEnviarActivities(),idx);var lbl=Q('#preview-recip-label');if(lbl)lbl.textContent='Vista previa — '+RECIPIENTS[idx].name;QA('.prpb').forEach(b=>b.classList.toggle('active',+b.dataset.idx===idx));}
+function renderRecipients(){var list=Q('#recipient-list');if(!list)return;list.innerHTML='';var pdfDiv=Q('#pdf-individual-btns');if(pdfDiv)pdfDiv.innerHTML='';RECIPIENTS.forEach((r,idx)=>{var item=document.createElement('div');item.className='ritem';item.innerHTML='<div class="rav" style="background:'+r.bg+'">'+r.avatar+'</div><div class="rinfo"><div class="rname">'+r.name+'</div><input class="remail-edit" type="email" value="'+r.email+'" data-idx="'+idx+'"></div><div style="display:flex;align-items:center;gap:6px"><button class="prpb" data-idx="'+idx+'" title="Vista previa">👁</button><div class="rtog"><input type="checkbox"'+(r.checked?' checked':'')+'></div></div>';item.querySelector('.remail-edit').addEventListener('change',e=>{RECIPIENTS[+e.target.dataset.idx].email=e.target.value.trim();});item.querySelector('.rtog input').addEventListener('change',e=>{RECIPIENTS[idx].checked=e.target.checked;});item.querySelector('.prpb').addEventListener('click',()=>showRecipientPreview(idx));list.appendChild(item);if(pdfDiv){var pb=document.createElement('button');pb.className='pdf-btn outline';pb.style.fontSize='11px';pb.style.padding='6px 10px';pb.innerHTML=r.avatar;pb.title='PDF '+r.name;pb.addEventListener('click',()=>generatePDF([idx],'SPS_Agenda_'+r.id+'_Sem'+getWeekNumber(getWeekStart(enviarWeekOffset))+'.pdf'));pdfDiv.appendChild(pb);}});}
+
+function generatePDF(recipientIndices,filename){var acts=getEnviarActivities(),wl=formatWeekLabel(enviarWeekOffset),wn=getWeekNumber(getWeekStart(enviarWeekOffset));var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>SPS Agenda Sem '+wn+'</title><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;font-size:11px}@media print{.page-break{page-break-before:always}}.page{padding:15mm}.hdr{background:#D33A2E;color:#fff;padding:10px 14px;margin:-15mm -15mm 14px;border-bottom:4px solid #B8960C}.day-hdr2{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#D33A2E;border-bottom:2px solid #f5e8e7;padding-bottom:4px;margin:12px 0 8px}.act{border-left:4px solid #D33A2E;padding:8px 10px;margin-bottom:8px;background:#fafafa;page-break-inside:avoid}.act-title{font-size:12px;font-weight:700;margin-bottom:5px}.act-table{width:100%;border-collapse:collapse;font-size:10px}.act-table td{padding:2px 0;vertical-align:top}.act-table td:first-child{color:#888;width:90px;font-weight:600}</style></head><body>';recipientIndices.forEach((ri,pi)=>{var r=RECIPIENTS[ri],sec=r.sections||{},filter=RFILT[r.role]||RFILT.general,filtered=acts.filter(filter);if(pi>0)html+='<div class="page-break"></div>';html+='<div class="page"><div class="hdr"><strong>Saint Peter\'s School — Agenda Sem. '+wn+'</strong><span style="float:right;font-style:italic">'+wl+'</span><div style="margin-top:4px;font-size:10px;opacity:.8">Para: '+r.name+' · '+r.email+'</div></div>';if(!filtered.length)html+='<p style="color:#aaa;text-align:center;padding:20px">Sin actividades relevantes.</p>';else{var byDay={};DAYS.forEach(d=>{var da=filtered.filter(a=>a.dia===d);if(da.length)byDay[d]=da;});Object.keys(byDay).forEach(day=>{html+='<div class="day-hdr2">'+day+'</div>';byDay[day].forEach(a=>{var bc=getTypeColor(a.tipo),tl=getTypeLabel(a.tipo);var cursos=Array.isArray(a.cursos)?a.cursos.join(', '):'';var reqs=(a.requisitos||[]).map(getReqLabel).filter(Boolean);if(a.reqOtro)reqs.push(a.reqOtro);var pStr=personasStr(a.personas);html+='<div class="act" style="border-left-color:'+bc+'"><div style="font-size:8px;font-weight:700;color:'+bc+';text-transform:uppercase;margin-bottom:3px">'+tl+'</div><div class="act-title">'+a.titulo+'</div><table class="act-table"><tr><td>📅 Fecha / Hora</td><td>'+(a.fecha||a.dia)+(a.hora?' · '+a.hora:'')+(a.retorno?' — '+a.retorno:'')+'</td></tr><tr><td>📍 Lugar</td><td>'+(a.locacion==='externo'?'🌍 ':'🏫 ')+a.lugar+(a.lugarDireccion?' ('+a.lugarDireccion+')':'')+'</td></tr>'+(sec.responsables&&a.responsables&&a.responsables.length?'<tr><td>👤 Responsables</td><td>'+a.responsables.join(', ')+'</td></tr>':'')+(sec.cursos&&pStr?'<tr><td>👥 Asistentes</td><td>'+pStr+'</td></tr>':'')+(sec.cursos&&cursos?'<tr><td>📚 Cursos</td><td>'+cursos+'</td></tr>':'')+(sec.traslado&&a.traslado?'<tr><td>🚌 Traslado</td><td>'+(a.trasladoDet||'')+(a.trasladoSalida?' Sal:'+a.trasladoSalida:'')+(a.trasladoLlegada?' → '+a.trasladoLlegada:'')+'</td></tr>':'')+(sec.porteria&&a.porteria?'<tr><td>🔐 Portería</td><td>Autorizado'+(a.porteriaNum?' · '+a.porteriaNum+' pers.':'')+'</td></tr>':'')+(sec.requisitos&&reqs.length?'<tr><td>⚙️ Req.</td><td>'+reqs.join(' · ')+'</td></tr>':'')+(sec.observaciones&&a.obs?'<tr><td>💬 Obs.</td><td>'+a.obs+'</td></tr>':'')+'</table></div>';});});}html+='</div>';});html+='</body></html>';var w=window.open('','_blank','width=900,height=700');if(!w){showToast('⚠️ Permite ventanas emergentes');return;}w.document.write(html);w.document.close();w.focus();setTimeout(()=>w.print(),600);showToast('📄 Ctrl+P → Guardar como PDF');}
+
+// ══ TV ══
+function buildTVInner(){var s=getWeekStart(currentWeekOffset),wl=formatWeekLabel(currentWeekOffset),wn=getWeekNumber(s);var dh='';for(var i=0;i<5;i++){var day=DAYS[i],d=new Date(s);d.setDate(s.getDate()+i);var isToday=d.toDateString()===new Date().toDateString();var dayActs=activities.filter(a=>a.dia===day).sort((a,b)=>a.hora.localeCompare(b.hora));var evH=dayActs.length?dayActs.map(a=>'<div style="background:rgba(255,255,255,.05);border-left:4px solid '+getTypeColor(a.tipo)+';border-radius:3px;padding:10px 12px;margin-bottom:8px"><div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.45);margin-bottom:3px">'+a.hora+'</div><div style="font-family:Georgia,serif;font-size:17px;color:#fff;line-height:1.2">'+a.titulo+'</div><div style="font-size:11px;color:rgba(255,255,255,.38);margin-top:3px">'+a.lugar+'</div></div>').join(''):'<div style="font-size:12px;color:rgba(255,255,255,.15);padding:8px 0;font-style:italic">Sin actividades</div>';dh+='<div style="display:flex;flex-direction:column;gap:10px"><div style="padding:12px 0 10px;border-bottom:2px solid rgba(255,255,255,.12)"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:'+(isToday?'#D33A2E':'rgba(255,255,255,.4)')+'">'+day+'</div><div style="font-family:Georgia,serif;font-size:44px;color:'+(isToday?'#D33A2E':'#fff')+';line-height:1;margin-top:2px">'+d.getDate()+'</div></div><div style="display:flex;flex-direction:column;gap:8px;flex:1;overflow:hidden">'+evH+'</div></div>';}return'<div style="position:absolute;inset:0;background:#0f0f0f"></div><div style="position:absolute;top:0;left:0;right:0;height:10px;background:#D33A2E"></div><div style="position:absolute;top:10px;left:0;right:0;height:3px;background:#B8960C"></div><div style="position:absolute;bottom:0;left:0;right:0;height:10px;background:#D33A2E"></div><div style="position:absolute;bottom:13px;left:0;right:0;height:3px;background:#B8960C"></div><div style="position:absolute;top:13px;left:0;right:0;height:110px;display:flex;align-items:center;justify-content:space-between;padding:0 52px;border-bottom:1px solid rgba(255,255,255,.08)"><div><div style="font-family:Georgia,serif;font-size:38px;font-weight:600;color:#fff">Saint Peter\'s School</div><div style="font-size:13px;color:rgba(255,255,255,.5);letter-spacing:.12em;text-transform:uppercase;margin-top:6px">Colegio Britanico · Vina del Mar · Desde 1918</div></div><div style="text-align:right"><div style="font-family:Georgia,serif;font-size:22px;font-style:italic;color:rgba(255,255,255,.85)">'+wl+'</div><div style="font-size:12px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-top:4px">Semana '+wn+'</div></div></div><div style="position:absolute;top:123px;left:0;right:0;height:48px;background:#D33A2E;display:flex;align-items:center;padding:0 52px;gap:16px"><div style="font-size:17px;font-weight:700;color:#fff;letter-spacing:.12em;text-transform:uppercase">Calendario de Actividades</div><div style="flex:1;height:1px;background:rgba(255,255,255,.3)"></div></div><div style="position:absolute;top:171px;bottom:26px;left:0;right:0;display:grid;grid-template-columns:repeat(5,1fr);padding:0 52px 24px;column-gap:16px">'+dh+'</div><div id="tv-clock" style="position:absolute;bottom:22px;right:52px;font-size:13px;color:rgba(255,255,255,.3);letter-spacing:.08em"></div>';}
+function scaleEl(el,w,h){var fw=el.parentElement;if(!fw)return;var sc=Math.min((fw.clientWidth-40)/w,(fw.clientHeight-40)/h,1);el.style.transform='scale('+sc+')';el.style.transformOrigin='center center';}
+var tvClockInterval=null;
+function startTVClock(){updateTVClock();tvClockInterval=setInterval(updateTVClock,1000);}
+function stopTVClock(){clearInterval(tvClockInterval);}
+function updateTVClock(){var el=Q('#tv-clock');if(!el)return;var n=new Date(),dn=['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],mn=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];el.textContent=dn[n.getDay()]+' '+n.getDate()+' de '+mn[n.getMonth()]+' · '+String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')+':'+String(n.getSeconds()).padStart(2,'0');}
+function renderDaySlide(){var selEl=Q('#slide-day-sel'),day=selEl?selEl.value:'Lunes';var s=getWeekStart(currentWeekOffset),dayIdx=DAYS.indexOf(day),d=new Date(s);d.setDate(s.getDate()+Math.max(0,dayIdx));var mn=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];var dateStr=d.getDate()+' de '+mn[d.getMonth()]+' '+d.getFullYear();var acts=activities.filter(a=>a.dia===day).sort((a,b)=>a.hora.localeCompare(b.hora));var scr=Q('#slide-screen');if(!scr)return;var cards='';if(!acts.length)cards='<div style="color:rgba(255,255,255,.25);font-size:14px;font-style:italic;padding:30px 0;text-align:center">Sin actividades para '+day+'</div>';else acts.forEach(a=>{var bc=getTypeColor(a.tipo),tl=getTypeLabel(a.tipo);var resp=(a.responsables&&a.responsables.length)?a.responsables.join(', '):'—';var curArr=Array.isArray(a.cursos)?a.cursos:[];var loc=(a.locacion==='externo'?'🌍 ':'🏫 ')+a.lugar;cards+='<div style="border-left:4px solid '+bc+';padding:10px 14px;background:rgba(255,255,255,.06);border-radius:0 5px 5px 0;margin-bottom:10px"><div style="font-size:9px;font-weight:700;color:'+bc+';text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">'+tl+'</div><div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:6px;line-height:1.2">'+a.titulo+'</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 14px;font-size:11px;color:rgba(255,255,255,.72)"><span>🕐 <strong style="color:#fff">'+a.hora+'</strong></span>'+(a.retorno?'<span>🕓 <strong style="color:#fff">'+a.retorno+'</strong></span>':'<span></span>')+'<span style="grid-column:span 2">'+loc+'</span>'+(curArr.length?'<span style="grid-column:span 2">📚 '+curArr.join(', ')+'</span>':'')+'<span style="grid-column:span 2">👤 '+resp+'</span></div></div>';});scr.innerHTML='<div style="position:absolute;inset:0;background:#0f0f14"><div style="position:absolute;top:0;left:0;right:0;height:5px;background:#D33A2E"></div><div style="position:absolute;top:5px;left:0;right:0;height:2px;background:#B8960C"></div><div style="position:absolute;bottom:5px;left:0;right:0;height:2px;background:#B8960C"></div><div style="position:absolute;bottom:0;left:0;right:0;height:5px;background:#D33A2E"></div><div style="position:absolute;top:7px;left:0;right:0;bottom:7px;display:flex;flex-direction:column"><div style="background:#D33A2E;padding:12px 28px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0"><div style="display:flex;align-items:center;gap:16px"><div style="font-family:Georgia,serif;font-size:30px;font-weight:600;color:#fff">'+day+'</div><div style="width:1px;height:28px;background:rgba(255,255,255,.3)"></div><div style="font-family:Georgia,serif;font-size:14px;font-style:italic;color:rgba(255,255,255,.85)">'+dateStr+'</div></div><div style="font-size:10px;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase">Saint Peter\'s School</div></div><div style="flex:1;overflow-y:auto;padding:14px 24px">'+cards+'</div></div></div>';}
+function buildRotativoHTML(){
+  var s=getWeekStart(currentWeekOffset),wl=formatWeekLabel(currentWeekOffset),wn=getWeekNumber(s);
+  var mn=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+  // ── Slide 0: Vista semanal ──
+  var dh='';
+  for(var i=0;i<5;i++){
+    var day=DAYS[i],dd=new Date(s);dd.setDate(s.getDate()+i);
+    var dayActs=activities.filter(a=>a.dia===day).sort((a,b)=>a.hora.localeCompare(b.hora));
+    var evH=dayActs.length?dayActs.map(a=>'<div style="background:rgba(255,255,255,.06);border-left:4px solid '+getTypeColor(a.tipo)+';border-radius:0 4px 4px 0;padding:8px 10px;margin-bottom:7px"><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.4);margin-bottom:2px">'+a.hora+'</div><div style="font-family:Georgia,serif;font-size:15px;color:#fff;line-height:1.25">'+a.titulo+'</div><div style="font-size:10px;color:rgba(255,255,255,.32);margin-top:2px">'+a.lugar+'</div></div>').join(''):'<div style="font-size:11px;color:rgba(255,255,255,.15);padding:6px 0;font-style:italic">Sin actividades</div>';
+    dh+='<div style="display:flex;flex-direction:column"><div style="padding:10px 0 8px;border-bottom:2px solid rgba(255,255,255,.1);margin-bottom:10px"><div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35)">'+day+'</div><div style="font-family:Georgia,serif;font-size:40px;color:#fff;line-height:1">'+dd.getDate()+'</div><div style="font-size:10px;color:rgba(255,255,255,.3)">'+mn[dd.getMonth()]+'</div></div>'+evH+'</div>';
+  }
+  var slideWeek='<div class="slide" style="background:#0f0f0f">'
+    +'<div style="position:absolute;top:0;left:0;right:0;height:10px;background:#D33A2E"></div>'
+    +'<div style="position:absolute;top:10px;left:0;right:0;height:3px;background:#B8960C"></div>'
+    +'<div style="position:absolute;bottom:0;left:0;right:0;height:10px;background:#D33A2E"></div>'
+    +'<div style="position:absolute;bottom:13px;left:0;right:0;height:3px;background:#B8960C"></div>'
+    +'<div style="position:absolute;top:13px;left:0;right:0;height:100px;display:flex;align-items:center;justify-content:space-between;padding:0 44px;border-bottom:1px solid rgba(255,255,255,.07)">'
+      +'<div><div style="font-family:Georgia,serif;font-size:32px;font-weight:600;color:#fff">Saint Peter\'s School</div><div style="font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.1em;text-transform:uppercase;margin-top:4px">Colegio Británico · Viña del Mar · Desde 1918</div></div>'
+      +'<div style="text-align:right"><div style="font-family:Georgia,serif;font-size:18px;font-style:italic;color:rgba(255,255,255,.8)">'+wl+'</div><div style="font-size:11px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-top:3px">Semana '+wn+'</div></div>'
+    +'</div>'
+    +'<div style="position:absolute;top:113px;left:0;right:0;height:40px;background:#D33A2E;display:flex;align-items:center;padding:0 44px"><div style="font-size:14px;font-weight:700;color:#fff;letter-spacing:.1em;text-transform:uppercase">Calendario de Actividades</div></div>'
+    +'<div style="position:absolute;top:153px;bottom:24px;left:0;right:0;display:grid;grid-template-columns:repeat(5,1fr);padding:0 44px 16px;column-gap:12px;overflow:hidden">'+dh+'</div>'
+    +'<div class="clock" style="position:absolute;bottom:18px;right:44px;font-size:11px;color:rgba(255,255,255,.28);letter-spacing:.06em"></div>'
+    +'</div>';
+
+  // ── Slides 1-5: Láminas diarias ──
+  var slidesDaily='';
+  for(var i=0;i<5;i++){
+    var day=DAYS[i],dd=new Date(s);dd.setDate(s.getDate()+i);
+    var dateStr=dd.getDate()+' de '+mn[dd.getMonth()]+' '+dd.getFullYear();
+    var acts=activities.filter(a=>a.dia===day).sort((a,b)=>a.hora.localeCompare(b.hora));
+    if(!acts.length){
+      cards='<div style="grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:16px;color:rgba(255,255,255,.18)"><div style="font-size:64px">📋</div><div style="font-size:18px;font-style:italic">Sin actividades para este día</div></div>';
+    } else {
+      acts.forEach(a=>{
+        var bc=getTypeColor(a.tipo),tl=getTypeLabel(a.tipo);
+        var resp=(a.responsables&&a.responsables.length)?a.responsables.join(', '):'—';
+        var curArr=Array.isArray(a.cursos)?a.cursos:[];
+        var pStr=personasStr(a.personas);
+        cards+='<div style="border:1px solid rgba(255,255,255,.08);border-top:4px solid '+bc+';background:rgba(255,255,255,.04);border-radius:8px;padding:22px 24px;display:flex;flex-direction:column;gap:12px">'
+          // type badge + title
+          +'<div>'
+            +'<div style="font-size:10px;font-weight:700;color:'+bc+';text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">'+tl+'</div>'
+            +'<div style="font-family:Georgia,serif;font-size:22px;color:#fff;line-height:1.3;font-weight:500">'+a.titulo+'</div>'
+          +'</div>'
+          // time + place row
+          +'<div style="display:flex;gap:10px;flex-wrap:wrap">'
+            +'<span style="background:rgba(255,255,255,.08);border-radius:20px;padding:5px 14px;font-size:13px;font-weight:700;color:#fff">🕐 '+a.hora+(a.retorno?' → '+a.retorno:'')+'</span>'
+            +'<span style="background:rgba(255,255,255,.08);border-radius:20px;padding:5px 14px;font-size:13px;color:rgba(255,255,255,.75)">'+(a.locacion==='externo'?'🌍':'🏫')+' '+a.lugar+'</span>'
+            +(a.traslado?'<span style="background:rgba(184,150,12,.18);border-radius:20px;padding:5px 14px;font-size:13px;color:#f0c040">🚌 '+(a.trasladoDet||'Traslado')+'</span>':'')
+          +'</div>'
+          // details grid
+          +'<div style="border-top:1px solid rgba(255,255,255,.07);padding-top:12px;display:flex;flex-direction:column;gap:7px;font-size:13px;color:rgba(255,255,255,.65)">'
+            +(resp!=='—'?'<div><span style="color:rgba(255,255,255,.35);margin-right:6px">👤</span>'+resp+'</div>':'')
+            +(curArr.length?'<div><span style="color:rgba(255,255,255,.35);margin-right:6px">📚</span>'+curArr.join(', ')+'</div>':'')
+            +(pStr?'<div><span style="color:rgba(255,255,255,.35);margin-right:6px">👥</span>'+pStr+'</div>':'')
+          +'</div>'
+        +'</div>';
+      });
+    }
+    // layout: sidebar left + cards right
+    var nActs=acts.length;
+    var cardCols=nActs<=2?'1fr':(nActs<=4?'1fr 1fr':'1fr 1fr 1fr');
+    slidesDaily+='<div class="slide" style="background:#0d0d12">'
+      // accent bars
+      +'<div style="position:absolute;top:0;left:0;right:0;height:8px;background:#D33A2E"></div>'
+      +'<div style="position:absolute;top:8px;left:0;right:0;height:3px;background:#B8960C"></div>'
+      +'<div style="position:absolute;bottom:0;left:0;right:0;height:8px;background:#D33A2E"></div>'
+      +'<div style="position:absolute;bottom:11px;left:0;right:0;height:3px;background:#B8960C"></div>'
+      // main layout
+      +'<div style="position:absolute;top:11px;left:0;right:0;bottom:11px;display:flex">'
+        // ── LEFT SIDEBAR ──
+        +'<div style="width:320px;flex-shrink:0;background:#D33A2E;display:flex;flex-direction:column;justify-content:space-between;padding:40px 32px 32px">'
+          +'<div>'
+            +'<div style="font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:12px">Saint Peter\'s School</div>'
+            +'<div style="font-family:Georgia,serif;font-size:72px;font-weight:600;color:#fff;line-height:1">'+day+'</div>'
+            +'<div style="width:48px;height:3px;background:rgba(255,255,255,.4);margin:18px 0"></div>'
+            +'<div style="font-family:Georgia,serif;font-size:20px;font-style:italic;color:rgba(255,255,255,.85);line-height:1.4">'+dd.getDate()+' de<br>'+mn[dd.getMonth()]+'<br>'+dd.getFullYear()+'</div>'
+          +'</div>'
+          +'<div>'
+            +'<div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:6px">'+nActs+' actividad'+(nActs!==1?'es':'')+'</div>'
+            +'<div class="clock" style="font-size:13px;color:rgba(255,255,255,.55);letter-spacing:.06em;line-height:1.6"></div>'
+          +'</div>'
+        +'</div>'
+        // ── RIGHT CONTENT ──
+        +'<div style="flex:1;overflow-y:auto;padding:32px 40px;display:grid;grid-template-columns:'+cardCols+';gap:20px;align-content:start">'
+          +cards
+        +'</div>'
+      +'</div>'
+    +'</div>';
+  }
+
+  return`<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>SPS Rotativo — Sem. ${wn}</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:#000;font-family:'Segoe UI',system-ui,sans-serif}
+#stage{width:1920px;height:1080px;position:relative;transform-origin:top left}
+.slide{position:absolute;inset:0;display:none;overflow:hidden}
+.slide.active{display:block}
+#controls{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);padding:10px 20px;border-radius:40px;z-index:999;opacity:0;transition:opacity .3s}
+body:hover #controls{opacity:1}
+.ctrl-btn{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.ctrl-btn:hover{background:rgba(255,255,255,.3)}
+#dots{display:flex;gap:8px;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .2s}
+.dot.active{background:#D33A2E;transform:scale(1.3)}
+#progress{position:fixed;top:0;left:0;height:3px;background:#D33A2E;transition:width .1s linear;z-index:1000}
+#label{font-size:12px;color:rgba(255,255,255,.6);min-width:80px;text-align:center}
+#timer-ctrl{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:4px 12px;border-radius:20px;cursor:pointer;font-size:11px;font-weight:600}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="stage">
+  ${slideWeek}
+  ${slidesDaily}
+</div>
+<div id="controls">
+  <button class="ctrl-btn" id="btn-prev" title="Anterior">&#8592;</button>
+  <div id="dots"></div>
+  <button class="ctrl-btn" id="btn-next" title="Siguiente">&#8594;</button>
+  <button id="timer-ctrl">⏸ Pausar</button>
+  <span id="label"></span>
+</div>
+<script>
+var slides=document.querySelectorAll('.slide');
+var total=slides.length;
+var cur=0,paused=false,elapsed=0,duration=12000,raf=null,last=null;
+var labels=['Vista semanal','Lunes','Martes','Miércoles','Jueves','Viernes'];
+
+function scale(){var st=document.getElementById('stage'),sc=Math.min(window.innerWidth/1920,window.innerHeight/1080);st.style.transform='scale('+sc+')';st.style.marginLeft=((window.innerWidth-1920*sc)/2)+'px';st.style.marginTop=((window.innerHeight-1080*sc)/2)+'px';}
+scale();window.addEventListener('resize',scale);
+
+var dotsEl=document.getElementById('dots');
+for(var i=0;i<total;i++){var d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.dataset.i=i;d.addEventListener('click',function(e){goTo(+e.target.dataset.i);});dotsEl.appendChild(d);}
+
+function goTo(n){slides[cur].classList.remove('active');cur=((n%total)+total)%total;slides[cur].classList.add('active');document.querySelectorAll('.dot').forEach(function(d,i){d.classList.toggle('active',i===cur);});document.getElementById('label').textContent=labels[cur]||('Día '+(cur));elapsed=0;}
+
+function tick(ts){if(!last)last=ts;var dt=ts-last;last=ts;if(!paused){elapsed+=dt;var pct=Math.min(elapsed/duration,1);document.getElementById('progress').style.width=(cur/total*100+pct/total*100)+'%';if(elapsed>=duration){goTo(cur+1);}}raf=requestAnimationFrame(tick);}
+raf=requestAnimationFrame(tick);
+
+document.getElementById('btn-prev').addEventListener('click',function(){goTo(cur-1);});
+document.getElementById('btn-next').addEventListener('click',function(){goTo(cur+1);});
+document.getElementById('timer-ctrl').addEventListener('click',function(){paused=!paused;this.textContent=paused?'▶ Reanudar':'⏸ Pausar';last=null;});
+document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')goTo(cur+1);else if(e.key==='ArrowLeft')goTo(cur-1);else if(e.key===' '){e.preventDefault();document.getElementById('timer-ctrl').click();}else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}});
+
+function updateClocks(){var n=new Date(),dn=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],mn=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];var str=dn[n.getDay()]+' '+n.getDate()+' de '+mn[n.getMonth()]+' '+n.getFullYear()+' · '+String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')+':'+String(n.getSeconds()).padStart(2,'0');document.querySelectorAll('.clock').forEach(function(el){el.textContent=str;});}
+updateClocks();setInterval(updateClocks,1000);
+document.getElementById('label').textContent=labels[0];
+<\/script>
+</body>
+</html>`;}
+
+function buildFullExportHTML(){var s=getWeekStart(currentWeekOffset),wl=formatWeekLabel(currentWeekOffset),wn=getWeekNumber(s);var mn=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];var dh='';for(var i=0;i<5;i++){var day=DAYS[i],dd2=new Date(s);dd2.setDate(s.getDate()+i);var dayActs=activities.filter(a=>a.dia===day).sort((a,b)=>a.hora.localeCompare(b.hora));var evH=dayActs.length?dayActs.map(a=>'<div style="background:rgba(255,255,255,.05);border-left:5px solid '+getTypeColor(a.tipo)+';padding:10px 14px;margin-bottom:10px"><div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.4);margin-bottom:3px">'+a.hora+'</div><div style="font-family:Georgia,serif;font-size:17px;color:#fff;line-height:1.2">'+a.titulo+'</div><div style="font-size:12px;color:rgba(255,255,255,.35);margin-top:4px">'+a.lugar+'</div></div>').join(''):'<div style="font-size:13px;color:rgba(255,255,255,.15);font-style:italic;padding:10px 0">Sin actividades</div>';dh+='<div style="flex:1;display:flex;flex-direction:column;min-width:0"><div style="padding:14px 0 12px;border-bottom:2px solid rgba(255,255,255,.1);margin-bottom:12px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.35)">'+day+'</div><div style="font-family:Georgia,serif;font-size:48px;color:#fff;line-height:1">'+dd2.getDate()+'</div><div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:1px">'+mn[dd2.getMonth()]+'</div></div>'+evH+'</div>';}return'<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>SPS Sem. '+wn+'</title><style>*{box-sizing:border-box;margin:0;padding:0}body{background:#0a0a0a;overflow:hidden;width:100vw;height:100vh}#w{width:1920px;height:1080px;position:relative;transform-origin:top left;background:#0f0f0f}</style></head><body><div id="w"><div style="position:absolute;top:0;left:0;right:0;height:14px;background:#D33A2E"></div><div style="position:absolute;top:14px;left:0;right:0;height:4px;background:#B8960C"></div><div style="position:absolute;bottom:14px;left:0;right:0;height:4px;background:#B8960C"></div><div style="position:absolute;bottom:0;left:0;right:0;height:14px;background:#D33A2E"></div><div style="position:absolute;top:18px;left:0;right:0;height:120px;display:flex;align-items:center;justify-content:space-between;padding:0 72px;border-bottom:1px solid rgba(255,255,255,.08)"><div><div style="font-family:Georgia,serif;font-size:44px;font-weight:600;color:#fff;line-height:1">Saint Peter\'s School</div><div style="font-size:13px;color:rgba(255,255,255,.45);letter-spacing:.12em;text-transform:uppercase;margin-top:6px">Colegio Britanico · Vina del Mar · Desde 1918</div></div><div style="text-align:right"><div style="font-family:Georgia,serif;font-size:24px;font-style:italic;color:rgba(255,255,255,.8)">'+wl+'</div><div style="font-size:12px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;margin-top:4px">Semana '+wn+'</div></div></div><div style="position:absolute;top:138px;left:0;right:0;height:50px;background:#D33A2E;display:flex;align-items:center;padding:0 72px"><div style="font-size:17px;font-weight:700;color:#fff;letter-spacing:.14em;text-transform:uppercase">Calendario de Actividades</div></div><div style="position:absolute;top:188px;bottom:32px;left:0;right:0;display:flex;padding:0 72px 24px;gap:20px">'+dh+'</div></div><script>function sc(){var e=document.getElementById("w"),s=Math.min(window.innerWidth/1920,window.innerHeight/1080);e.style.transform="scale("+s+")";e.style.marginLeft=((window.innerWidth-1920*s)/2)+"px";e.style.marginTop=((window.innerHeight-1080*s)/2)+"px";}sc();window.addEventListener("resize",sc);<\/script></body></html>';}
+
+// ══ CONFIG TAB ══
+QA('.cfg-sidebar-item').forEach(item=>item.addEventListener('click',()=>{QA('.cfg-sidebar-item').forEach(x=>x.classList.remove('active'));QA('.cfg-section').forEach(x=>x.classList.remove('active'));item.classList.add('active');var target=Q('#cfg-'+item.dataset.cfg);if(target)target.classList.add('active');}));
+
+// People list config helper
+function makePeopleCfgList(listId,db,saveBtn,addBtn){
+  function render(){var list=Q('#'+listId);if(!list)return;list.innerHTML='';db.forEach((name,idx)=>{var row=document.createElement('div');row.className='people-cfg-row';row.innerHTML='<span style="font-size:12px;color:#9A9690;min-width:22px;text-align:right">'+(idx+1)+'.</span><input class="people-cfg-input" type="text" value="'+name+'"><button class="people-cfg-del">×</button>';row.querySelector('.people-cfg-input').addEventListener('input',e=>db[idx]=e.target.value);row.querySelector('.people-cfg-del').addEventListener('click',()=>{db.splice(idx,1);render();});list.appendChild(row);});}
+  render();
+  on('#'+addBtn,'click',()=>{db.push('');render();var inputs=Q('#'+listId).querySelectorAll('.people-cfg-input');if(inputs.length)inputs[inputs.length-1].focus();});
+  on('#'+saveBtn,'click',()=>{showToast('✅ Lista guardada');render();});
+  // CSV import
+  var csvId=listId==='resp-cfg-list'?'csv-resp':'csv-alumnos';
+  var csvEl=Q('#'+csvId);
+  if(csvEl)csvEl.addEventListener('change',function(){var f=this.files[0];if(!f)return;var reader=new FileReader();reader.onload=e=>{var lines=e.target.result.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);var added=0;lines.forEach(name=>{if(!db.includes(name)){db.push(name);added++;}});render();showToast('✅ '+added+' personas importadas');};reader.readAsText(f);this.value='';});
+}
+
+function renderRecipientsCfg(){var list=Q('#recipients-cfg-list');if(!list)return;list.innerHTML='';RECIPIENTS.forEach((r,idx)=>{var card=document.createElement('div');card.className='rec-card';var secToggles=CONFIG.sections.map(s=>{var isOn=r.sections[s.key];return'<label class="sec-tog'+(isOn?' on':'')+'" data-ri="'+idx+'" data-sec="'+s.key+'"><input type="checkbox"'+(isOn?' checked':'')+'> '+s.label+'</label>';}).join('');var roleOpts=CONFIG.roles.map(role=>'<option value="'+role.key+'"'+(r.role===role.key?' selected':'')+'>'+role.label+'</option>').join('');var colorDots=PALETTE.map(c=>'<div class="color-dot'+(r.bg===c?' selected':'')+'" style="background:'+c+'" data-color="'+c+'" data-ri="'+idx+'"></div>').join('');card.innerHTML='<div class="rec-card-hdr"><div class="rec-avatar" id="rec-av-'+idx+'" style="background:'+r.bg+'">'+r.avatar+'</div><div class="rec-info"><input class="rec-name-input" type="text" value="'+r.name+'" data-ri="'+idx+'" data-field="name"><input class="rec-email-input" type="email" value="'+r.email+'" data-ri="'+idx+'" data-field="email"></div><button class="btn-rec-del" data-ri="'+idx+'">Eliminar</button></div><div class="rec-card-body"><div style="margin-bottom:10px"><div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#9A9690;margin-bottom:8px">Secciones visibles</div><div class="sec-toggles">'+secToggles+'</div></div><div class="rec-role-row"><span class="rec-role-lbl">Rol:</span><select class="role-sel" data-ri="'+idx+'">'+roleOpts+'</select><span class="rec-role-lbl">Color:</span><div class="color-dot-pick">'+colorDots+'</div></div></div>';card.querySelectorAll('.rec-name-input,.rec-email-input').forEach(inp=>inp.addEventListener('input',()=>{var ri=+inp.dataset.ri,field=inp.dataset.field;RECIPIENTS[ri][field]=inp.value;if(field==='name'){var av=Q('#rec-av-'+ri);if(av)av.textContent=initials(inp.value);}}));card.querySelectorAll('.sec-tog').forEach(tog=>tog.querySelector('input').addEventListener('change',()=>{var ri=+tog.dataset.ri,sec=tog.dataset.sec,v=tog.querySelector('input').checked;RECIPIENTS[ri].sections[sec]=v;tog.classList.toggle('on',v);}));card.querySelector('.role-sel').addEventListener('change',e=>RECIPIENTS[+e.target.dataset.ri].role=e.target.value);card.querySelectorAll('.color-dot').forEach(dot=>dot.addEventListener('click',()=>{var ri=+dot.dataset.ri,c=dot.dataset.color;RECIPIENTS[ri].bg=c;card.querySelectorAll('.color-dot').forEach(d=>d.classList.toggle('selected',d.dataset.color===c));var av=Q('#rec-av-'+ri);if(av)av.style.background=c;}));card.querySelector('.btn-rec-del').addEventListener('click',e=>{var ri=+e.target.dataset.ri;openModal('Eliminar destinatario','¿Eliminar a <strong>'+RECIPIENTS[ri].name+'</strong>?',()=>{RECIPIENTS.splice(ri,1);renderRecipientsCfg();renderRecipients();showToast('🗑️ Eliminado');});});list.appendChild(card);});}
+on('#btn-add-recipient','click',()=>{RECIPIENTS.push({id:'NV',avatar:'NV',bg:'#8A8F99',name:'Nuevo destinatario',email:'nuevo@colegio.cl',role:'general',checked:false,sections:{descripcion:true,responsables:true,cursos:true,traslado:true,porteria:false,requisitos:true,observaciones:false}});renderRecipientsCfg();renderRecipients();});
+on('#btn-cfg-save-rec','click',()=>{renderRecipients();renderEmailPreview();showToast('✅ Destinatarios guardados');});
+
+function renderTiposCfg(){var list=Q('#tipos-cfg-list');if(!list)return;list.innerHTML='';CONFIG.types.forEach((t,idx)=>{var row=document.createElement('div');row.className='type-row';row.innerHTML='<div class="type-dot" style="background:'+t.color+'"></div><input class="type-name-input" type="text" value="'+t.label+'" data-idx="'+idx+'"><input type="color" class="type-color-input" value="'+t.color+'" data-idx="'+idx+'"><button type="button" class="del-btn" data-idx="'+idx+'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg></button>';row.querySelector('.type-name-input').addEventListener('input',e=>CONFIG.types[+e.target.dataset.idx].label=e.target.value);row.querySelector('.type-color-input').addEventListener('input',e=>{CONFIG.types[+e.target.dataset.idx].color=e.target.value;row.querySelector('.type-dot').style.background=e.target.value;});row.querySelector('.del-btn').addEventListener('click',e=>{var i=+e.currentTarget.dataset.idx;openModal('Eliminar tipo','¿Eliminar <strong>'+CONFIG.types[i].label+'</strong>?',()=>{CONFIG.types.splice(i,1);renderTiposCfg();});});list.appendChild(row);});}
+on('#btn-add-tipo','click',()=>{CONFIG.types.push({key:'tipo'+Date.now(),label:'Nuevo tipo',color:'#9A9690'});renderTiposCfg();});
+on('#btn-cfg-save-tipos','click',()=>{rebuildTipoSelect();showToast('✅ Tipos guardados');});
+
+function renderRolesCfg(){var list=Q('#roles-cfg-list');if(!list)return;list.innerHTML='';CONFIG.roles.forEach((r,idx)=>{var row=document.createElement('div');row.className='role-cfg-row';row.innerHTML='<span style="font-size:18px">'+r.label.split(' ')[0]+'</span><input class="role-cfg-input" type="text" value="'+r.label+'" data-idx="'+idx+'"><button type="button" class="role-cfg-del" data-idx="'+idx+'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg></button>';row.querySelector('.role-cfg-input').addEventListener('input',e=>CONFIG.roles[+e.target.dataset.idx].label=e.target.value);row.querySelector('.role-cfg-del').addEventListener('click',e=>{var i=+e.currentTarget.dataset.idx;openModal('Eliminar rol','¿Eliminar <strong>'+CONFIG.roles[i].label+'</strong>?',()=>{CONFIG.roles.splice(i,1);renderRolesCfg();});});list.appendChild(row);});}
+on('#btn-add-role','click',()=>{CONFIG.roles.push({key:'rol'+Date.now(),label:'🔹 Nuevo rol'});renderRolesCfg();});
+on('#btn-cfg-save-roles','click',()=>{rebuildRolesChips();showToast('✅ Roles guardados');});
+
+function renderCursosCfg(){var list=Q('#cursos-cfg-list');if(!list)return;list.innerHTML='';CONFIG.courseGroups.forEach((g,gi)=>{var panel=document.createElement('div');panel.className='courses-cfg-panel';var coursesHtml=g.courses.map((c,ci)=>'<div class="course-cfg-row"><span style="font-size:11px;color:#9A9690;min-width:18px">'+(ci+1)+'.</span><input class="course-cfg-input" type="text" value="'+c+'" data-gi="'+gi+'" data-ci="'+ci+'"><button type="button" class="course-cfg-del" data-gi="'+gi+'" data-ci="'+ci+'">×</button></div>').join('');panel.innerHTML='<div class="courses-cfg-group-hdr"><input class="courses-cfg-group-name" type="text" value="'+g.label+'" data-gi="'+gi+'"><button type="button" class="btn-cfg-add" data-gi="'+gi+'" style="font-size:11px;padding:4px 8px">+ Curso</button></div><div class="courses-cfg-list-inner">'+coursesHtml+'</div>';panel.querySelector('.courses-cfg-group-name').addEventListener('input',e=>CONFIG.courseGroups[+e.target.dataset.gi].label=e.target.value);panel.querySelectorAll('.course-cfg-input').forEach(inp=>inp.addEventListener('input',()=>CONFIG.courseGroups[+inp.dataset.gi].courses[+inp.dataset.ci]=inp.value));panel.querySelectorAll('.course-cfg-del').forEach(btn=>btn.addEventListener('click',()=>{var gi=+btn.dataset.gi,ci=+btn.dataset.ci;CONFIG.courseGroups[gi].courses.splice(ci,1);renderCursosCfg();}));panel.querySelector('.btn-cfg-add[data-gi]').addEventListener('click',e=>{CONFIG.courseGroups[+e.currentTarget.dataset.gi].courses.push('Nuevo curso');renderCursosCfg();});list.appendChild(panel);});}
+on('#btn-add-group','click',()=>{CONFIG.courseGroups.push({label:'Nuevo grupo',courses:[]});renderCursosCfg();});
+on('#btn-cfg-save-cursos','click',()=>{buildCourseDropdown();showToast('✅ Cursos actualizados');});
+
+function renderSectionsCfg(){var list=Q('#sections-cfg-list');if(!list)return;list.innerHTML='';CONFIG.sections.forEach((s,idx)=>{var row=document.createElement('div');row.className='section-cfg-row';row.innerHTML='<span style="font-size:11px;color:#9A9690;font-family:monospace;background:#F7F6F4;padding:2px 7px;border-radius:3px;flex-shrink:0">'+s.key+'</span><input class="section-cfg-input" type="text" value="'+s.label+'" data-idx="'+idx+'"><span style="font-size:11px;color:#9A9690;font-style:italic">→ nombre visible</span>';row.querySelector('input').addEventListener('input',e=>CONFIG.sections[+e.target.dataset.idx].label=e.target.value);list.appendChild(row);});}
+on('#btn-cfg-save-secs','click',()=>{renderRecipientsCfg();showToast('✅ Secciones actualizadas');});
+
+function renderReqsCfg(){var list=Q('#reqs-cfg-list');if(!list)return;list.innerHTML='';CONFIG.requirements.forEach((r,idx)=>{var row=document.createElement('div');row.className='req-cfg-row';row.innerHTML='<span class="req-cfg-emoji">'+r.emoji+'</span><input class="req-cfg-input" type="text" value="'+r.label+'" data-idx="'+idx+'"><button type="button" class="req-cfg-del" data-idx="'+idx+'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg></button>';row.querySelector('.req-cfg-input').addEventListener('input',e=>CONFIG.requirements[+e.target.dataset.idx].label=e.target.value);row.querySelector('.req-cfg-del').addEventListener('click',e=>{var i=+e.currentTarget.dataset.idx;CONFIG.requirements.splice(i,1);renderReqsCfg();});list.appendChild(row);});}
+on('#btn-add-req','click',()=>{CONFIG.requirements.push({id:'req-'+Date.now(),emoji:'⚙️',label:'Nuevo requisito'});renderReqsCfg();});
+on('#btn-cfg-save-reqs','click',()=>{rebuildReqCheckboxes();showToast('✅ Requisitos actualizados');});
+
+// ══ TABS ══
+QA('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{QA('.tab-btn').forEach(b=>b.classList.remove('active'));QA('.tab-panel').forEach(p=>p.classList.remove('active'));btn.classList.add('active');var name=btn.dataset.tab;Q('#tab-'+name).classList.add('active');if(name==='enviar'){enviarWeekOffset=currentWeekOffset;updateEnviarWeekDisplay();renderRecipients();}if(name==='proyeccion')renderProjection();if(name==='por-rol')renderRolTab();if(name==='configuracion'){renderRecipientsCfg();renderTiposCfg();renderRolesCfg();renderCursosCfg();renderSectionsCfg();renderReqsCfg();makePeopleCfgList('resp-cfg-list',RESPONSABLES_DB,'btn-cfg-save-resp','btn-add-resp-cfg');makePeopleCfgList('alumnos-cfg-list',ALUMNOS_DB,'btn-cfg-save-alumnos','btn-add-alumno-cfg');}}));
+
+// ══ EVENTS ══
+on('#btn-guardar','click',()=>{saveToFile();showToast('💾 Guardado');});
+on('#wk-prev','click',()=>{currentWeekOffset--;updateWeekDisplay();renderAll();});
+on('#wk-next','click',()=>{currentWeekOffset++;updateWeekDisplay();renderAll();});
+on('#pwk-prev','click',()=>{currentWeekOffset--;updateWeekDisplay();renderAll();renderProjection();});
+on('#pwk-next','click',()=>{currentWeekOffset++;updateWeekDisplay();renderAll();renderProjection();});
+on('#ewk-prev','click',()=>{enviarWeekOffset--;updateEnviarWeekDisplay();});
+on('#ewk-next','click',()=>{enviarWeekOffset++;updateEnviarWeekDisplay();});
+on('#btn-nueva','click',()=>{selectedActivityId=null;clearForm();Q('#form-panel-title').textContent='Nueva actividad';Q('#form-panel-sub').textContent='Complete los campos requeridos';Q('#btn-delete').style.display='none';renderChips();renderList();});
+on('#btn-limpiar','click',clearForm);
+on('#btn-guardar-act','click',saveActivity);
+on('#btn-delete','click',()=>{if(!selectedActivityId)return;var a=activities.find(x=>x.id===selectedActivityId);if(!a)return;openModal('Eliminar actividad','¿Eliminar "<strong>'+a.titulo+'</strong>"?',()=>{activities=activities.filter(x=>x.id!==selectedActivityId);selectedActivityId=null;clearForm();Q('#btn-delete').style.display='none';Q('#form-panel-title').textContent='Nueva actividad';Q('#form-panel-sub').textContent='Complete los campos requeridos';renderAll();showToast('🗑️ Eliminada');});});
+on('#loc-interno-btn','click',()=>setLocacion('interno'));
+on('#loc-externo-btn','click',()=>setLocacion('externo'));
+on('#f-dia-fecha','change',function(){onDiaFechaChange(this.value);});
+on('#porteria-si','change',function(){if(this.checked)togglePorteria(true);});
+on('#porteria-no','change',function(){if(this.checked)togglePorteria(false);});
+on('#btn-add-port','click',()=>addPorteriaPersona());
+on('#traslado-si','change',function(){if(this.checked)toggleTraslado(true);});
+on('#traslado-no','change',function(){if(this.checked)toggleTraslado(false);});
+on('#btn-enviar-agenda','click',async()=>{
+  var checked=RECIPIENTS.filter(r=>r.checked);
+  if(!checked.length){showToast('⚠️ Selecciona al menos un destinatario');return;}
+  var acts=getEnviarActivities(),wl=formatWeekLabel(enviarWeekOffset),wn=getWeekNumber(getWeekStart(enviarWeekOffset));
+  var subject='📅 Agenda Saint Peter\'s School — Semana '+wn+' · '+wl;
+  var btn=Q('#btn-enviar-agenda');btn.disabled=true;btn.innerHTML='⏳ Creando borradores...';
+  var sent=0,failed=[];
+
+  for(var i=0;i<checked.length;i++){
+    var r=checked[i];
+    var htmlBody=buildEmailHTML(acts,r,wl,wn);
+    try{
+      var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',max_tokens:1024,
+        system:'Eres un asistente que crea borradores en Gmail usando la herramienta gmail_create_draft. Crea el borrador exactamente con los datos que te pasen. No respondas nada más.',
+        messages:[{role:'user',content:'Crea un borrador de Gmail con estos datos:\n- to: '+r.email+'\n- subject: '+subject+'\n- body (HTML): '+htmlBody}],
+        mcp_servers:[{type:'url',url:'https://gmailmcp.googleapis.com/mcp/v1',name:'gmail'}]
+      })});
+      var data=await res.json();
+      var ok=data&&data.content&&data.content.some(c=>c.type==='mcp_tool_use'||c.type==='mcp_tool_result');
+      if(ok)sent++;else failed.push(r.name);
+    }catch(e){failed.push(r.name);}
+  }
+
+  btn.disabled=false;
+  btn.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Enviar agenda';
+  if(!failed.length){
+    showToast('✅ '+sent+' borrador'+(sent!==1?'es':'')+' creado'+(sent!==1?'s':'')+' en Gmail — revisa y envía desde info@stpeters.cl');
+  }else{
+    showToast('⚠️ '+sent+' ok · Falló: '+failed.join(', '));
+  }
+});
+on('#btn-copy-preview','click',()=>{navigator.clipboard.writeText(Q('#email-preview').innerText).then(()=>showToast('📋 Texto copiado'));});
+on('#btn-pdf-todos','click',()=>{var wn=getWeekNumber(getWeekStart(enviarWeekOffset));generatePDF(RECIPIENTS.map((_,i)=>i),'SPS_Agenda_Completa_Sem'+wn+'.pdf');});
+on('#btn-tv-preview','click',()=>{Q('#tv-screen').innerHTML=buildTVInner();Q('#tv-overlay').classList.add('open');scaleEl(Q('#tv-screen'),1280,720);startTVClock();});
+on('#btn-tv-close','click',()=>{Q('#tv-overlay').classList.remove('open');stopTVClock();});
+on('#btn-tv-export2','click',()=>{var wn=getWeekNumber(getWeekStart(currentWeekOffset));exportHTML(buildFullExportHTML(),'SPS_TV_Sem'+wn+'.html');showToast('✅ Exportado');});
+on('#btn-export-tv','click',()=>{var wn=getWeekNumber(getWeekStart(currentWeekOffset));exportHTML(buildRotativoHTML(),'SPS_Rotativo_Sem'+wn+'.html');showToast('✅ Archivo rotativo exportado');});
+on('#btn-lamina','click',()=>{var today=new Date().toDateString(),s=getWeekStart(currentWeekOffset),def='Lunes';for(var i=0;i<5;i++){var dd2=new Date(s);dd2.setDate(s.getDate()+i);if(dd2.toDateString()===today){def=DAYS[i];break;}}Q('#slide-day-sel').value=def;Q('#slide-overlay').classList.add('open');renderDaySlide();scaleEl(Q('#slide-screen'),1280,720);});
+on('#btn-slide-close','click',()=>{Q('#slide-overlay').classList.remove('open');});
+on('#slide-day-sel','change',()=>{renderDaySlide();scaleEl(Q('#slide-screen'),1280,720);});
+on('#btn-slide-export','click',()=>{exportHTML(buildFullExportHTML(),'SPS_Laminas.html');showToast('✅ Exportado');});
+on('#modal-close-btn','click',()=>Q('#modal-overlay').classList.remove('open'));
+on('#modal-cancel-btn','click',()=>Q('#modal-overlay').classList.remove('open'));
+on('#modal-confirm-btn','click',()=>{if(modalCallback){modalCallback();modalCallback=null;}Q('#modal-overlay').classList.remove('open');});
+on('#modal-overlay','click',e=>{if(e.target===Q('#modal-overlay'))Q('#modal-overlay').classList.remove('open');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeOverlays();});
+window.addEventListener('resize',()=>{if(Q('#tv-overlay').classList.contains('open'))scaleEl(Q('#tv-screen'),1280,720);if(Q('#slide-overlay').classList.contains('open'))scaleEl(Q('#slide-screen'),1280,720);});
+
+// ══ INIT ══
+rebuildTipoSelect();
+rebuildReqCheckboxes();
+rebuildRolesChips();
+updateWeekDisplay();
+// init pickers
+respPicker=makePeoplePicker('resp-tags','resp-input','resp-dropdown',RESPONSABLES_DB,respSelected);
+colabPicker=makePeoplePicker('colab-tags','colab-input','colab-dropdown',RESPONSABLES_DB,colabSelected);
+clearForm();
+renderAll();
+renderRecipients();
+updateEnviarWeekDisplay();
+});
+</script>
+</body>
+</html>
